@@ -215,11 +215,11 @@
                             <th>Unit</th>
                             <th>collection name</th>
                             <th>collection phone</th>
-                            <th>collection address</th>
+                            <th>collection Postal Code</th>
                             <th>collection city</th>
                             <th>Delivery name</th>
                             <th>Delivery phone</th>
-                            <th>Delivery address</th>
+                            <th>Delivery Postal Code</th>
                             <th>Delivery city</th>
                             <th>Estimate Price</th>
                             <th>status</th>

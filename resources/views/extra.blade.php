@@ -1,121 +1,224 @@
-@extends('layout.master')
+<!DOCTYPE html>
+<html lang="en-GB">
 
-@push('plugin-styles')
- <link rel="stylesheet" type="text/css" href="assets/plugins/plugin.css" media="all">
-@endpush
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="description"
+        content="Express same day delivery across the UK, We Are Same Day, our deliveries are guaranteed and safe. Tracked Throughout">
 
-@section('content')
-<div class="row dashboardboxes">
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="d-flex flex-md-column flex-xl-row flex-wrap justify-content-between align-items-md-center justify-content-xl-between">
-          <div class="float-left">
-            <i class="mdi mdi-receipt text-warning icon-lg"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Total Bookings</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">{{$allbooking}}</h3>
-              <p class="font-weight-medium text-right mb-0">£{{$allbooking_p}}</p>
-            </div>
-          </div>
-        </div>
-        <a href="{{url('user/bookings')}}"><p class="text-muted mt-3 mb-0 text-left text-md-center text-xl-left">
-          <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> view detail </p></a>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="d-flex flex-md-column flex-xl-row flex-wrap justify-content-between align-items-md-center justify-content-xl-between">
-          <div class="float-left">
-            <i class="mdi mdi-poll-box text-success icon-lg"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Canceled Bookings</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">{{$cancel}}</h3>
-            </div>
-          </div>
-        </div>
-        <a href="{{url('user/usercancaelbooking')}}"><p class="text-muted mt-3 mb-0 text-left text-md-center text-xl-left">
-          <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> view detail </p></a>
-      </div>
-    </div>
-  </div>
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="d-flex flex-md-column flex-xl-row flex-wrap justify-content-between align-items-md-center justify-content-xl-between">
-          <div class="float-left">
-            <i class="mdi mdi-truck text-success icon-lg"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Progress Bookings</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">{{$inprogress}}</h3>
-            </div>
-          </div>
-        </div>
-        <a href="{{url('user/userprogressbooking')}}"><p class="text-muted mt-3 mb-0 text-left text-md-center text-xl-left">
-          <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> view detail </p></a>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="d-flex flex-md-column flex-xl-row flex-wrap justify-content-between align-items-md-center justify-content-xl-between">
-          <div class="float-left">
-            <i class="mdi mdi-checkbox-marked text-info icon-lg"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Completed Bookings</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">{{$complete}}</h3>
-            </div>
-          </div>
-        </div>
-        <a href="{{url('user/usercompletebooking')}}"><p class="text-muted mt-3 mb-0 text-left text-md-center text-xl-left">
-          <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> view detail </p></a>
-      </div>
-    </div>
-  </div>
-</div>
+    <title>FastuK</title>
 
-<div class="row">
-  <div class="col-lg-12 grid-margin">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Recently Bookings</h4>
-        <div class="table-responsive">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('assets_front/new/css/contact7.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ asset('assets_front/new/css/cookie.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ asset('assets_front/new/css/gdpr.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ asset('assets_front/new/css/style.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ asset('assets_front/new/css/main.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ asset('assets_front/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('assets_front/indexstyle.css') }}">
+    <link rel="canonical" href="https://fastukcouriers.co.uk/quote">
+
+    <link rel="icon" href="{{ asset('assets_front/new/images/favicon.png') }}" sizes="192x192">
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('assets_front/new/js/jquery.js') }}" id="jquery-core-js"></script>
+    <script src="{{ asset('assets_front/new/js/jquery_migrate.js') }}" id="jquery-migrate-js"></script>
+    <script src="{{ asset('assets_front/new/js/cookie.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdCB6iqlUAGnEFSmNmMl1OIZ2tKHIizBI&libraries=places">
+    </script>
+
+    <style>
+    / Custom Styles / .custom-overlay-text {
+        background-color: rgba(255, 255, 255, .9);
+    }
+
+    / General Reset / * {
+        margin: 0;
+        padding: 0px;
+        box-sizing: border-box;
+        ;
+
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f8f9fa;
+        padding-top: 20px;
+    }
+
+    header {
+        background-color: #aa1818;
+        padding: 15px 0;
+        color: white;
+        text-align: center;
+    }
+
+    header img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    #bookingTable_length,
+    #bookingTable_filter {
+        display: none !important;
+    }
+
+    section {
+        padding: 24px 0;
+        margin-bottom: 3em;
+    }
+
+    h2 {
+        text-align: start;
+        color: #aa1818;
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        text-align: end;
+        margin-bottom: 41px;
+        font-size: 24px;
+        margin-top: -4em;
+    }
+
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        font-size: 16px;
+    }
+
+    #bookingTable_wrapper {
+        overflow: auto !important;
+    }
+
+    table th,
+    table td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #aa1818;
+        color: white;
+    }
+
+    table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #bookingTable_info {
+        display: none;
+    }
+
+    #bookingTable_paginate {
+        display: none;
+    }
+
+    footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+    }
+
+    footer a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
+    }
+
+    #shadow-host-companion {
+        padding: 0;
+    }
+    </style>
+</head>
+
+<body class="home page-template page-template-home page page-id-43 wp-custom-logo" style="padding-top: 0;">
+
+    <!-- Header Section -->
+    <section class="lg:mt-0 px-6 sm:px-9 mx-auto hidden md:flex items-center justify-center lg:justify-between"
+        style="background-color:#aa1818;">
+        <div class="flex justify-center items-center">
+            <a href="/" class="custom-logo-link" rel="home"><img src="{{ url('images/fast_uk_couriers.png') }}"
+                    class="custom-logo" alt="Logo" style="width:150px;height:auto;"></a>
+        </div>
+        <div class="mt-3 lg:mt-0 md:flex justify-center text-center">
+            <div class="px-6 py-1 lg:border-r lg:border-solid lg:border-gray-300">
+                <a href="mailto:info@fastukcouriers.co.uk">info@fastukcouriers.co.uk</a>
+            </div>
+            <div class="py-1 px-6 lg:border-r lg:border-solid lg:border-gray-300">
+                <span style="color:white;">Call: </span>
+                <a href="tel:03333444189" style="color:white;">03333444189</a>
+                @if (Auth::user())
+                <span class="ml-5 header-buttons"><a href="{{ url('home') }}">Dashboard</a></span>
+                @else
+                <span class="ml-5 header-buttons"><a href="{{ route('destroy.guest') }}">Logout</a></span>
+                @endif
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile Header Section -->
+    <section class="flex md:hidden justify-between p-6 items-center">
+        <div class="flex justify-center">
+            <a href="/" class="custom-logo-link" rel="home"><img width="244" height="48"
+                    src="{{ url('images/fast_uk_couriers.png') }}" class="custom-logo" alt="We Are Same Day Logo"></a>
+        </div>
+        <div class="flex">
+            <a href="mailto:info@fastukcouriers.co.uk" class="ml-4 mr-2"><img
+                    src="https://wearesameday.com/wp-content/themes/jyst-theme/media/envelope.svg"></a>
+            <a href="tel:03333444189"><img
+                    src="https://wearesameday.com/wp-content/themes/jyst-theme/media/call.svg"></a>
+        </div>
+    </section>
+
+
+    <section class="content gradient">
+        <div class="container mx-auto px-4">
+            <div class="table-header-id" style="display: flex;">
+                <h2 style="flex: 1; font-weight: bold; font-size:32px;">Your Booking</h2>
+            </div>
+
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th>Address Type</th>
-                        <th>Collection Point</th>
-                        <th>Delivery Point</th>
-                        <th>Package Type</th>
-                        <th>Quantity</th>
-                        <th>Weight</th>
-                        <th>Unit</th>
-                        <th>Length</th>
-                        <th>Width</th>
-                        <th>Height</th>
-                        <th>Size Unit</th>
-                        <th>Company Name</th>
-                        <th>Contact Name</th>
-                        <th>Contact Number</th>
-                        <th>Postal Code</th>
+                        <tr>
+                            <th>Address Type</th>
+                            <th>Collection Point</th>
+                            <th>Delivery Point</th>
+                            <th>Package Type</th>
+                            <th>Quantity</th>
+                            <th>Weight</th>
+                            <th>Unit</th>
+                            <th>Length</th>
+                            <th>Width</th>
+                            <th>Height</th>
+                            <th>Size Unit</th>
+                            <th>Company Name</th>
+                            <th>Contact Name</th>
+                            <th>Contact Number</th>
+                            <th>Postal Code</th>
 
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody>
 
-                    @foreach($booking as $bookings)
+                        @foreach($booking as $bookings)
                         <tr class="success">
                             <td>{{$bookings->address_type}}</td>
                             <td>{{$bookings->collection_point ?? '-'}}</td>
@@ -133,46 +236,30 @@
                             <td>{{$bookings->contact_tele}}</td>
                             <td>{{$bookings->postal_code}}</td>
                         </tr>
-                    @endforeach
+                        @endforeach
 
                     </tbody>
                 </table>
             </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+
+        <section class="dark-box" style="position: absolute;bottom: 0;width: 100%;margin-bottom: 0em;">
+            <div class="container pt-6 md:pt-0 mx-auto md:flex justify-between items-center">
+                <div class="md:w-1/2 text-base text-light text-white text-center md:text-left">Copyright © 2024 Fastuk.
+                    All rights reserved. | <a href="https://wearesameday.com/privacy-policy/">Privacy Policy</a> | <a
+                        href="https://wearesameday.com/cookie-policy/">Cookie Policy</a> </div>
+                <div class="md:w-1/2 mt-2 md:mt-0 flex items-center justify-center md:justify-end">
+                    <h6 class="text-base text-light text-white mr-5">Powered by</h6> Canva Solutions
+                </div>
+            </div>
+        </section>
+    </footer>
 
 
-<!-- Include SweetAlert library -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- Include SweetAlert library -->
-<script src="/path/to/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+</body>
 
-    @if (session('success'))
-    <script>
-        // Display SweetAlert for 2 seconds
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    </script>
-@endif
-@endsection
-
-@push('plugin-scripts')
-    <script src="{{url('assets/plugins/chartjs/chart.min.js')}}"></script>
-    <script src="assets/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
-
-
-@endpush
-
-@push('custom-scripts')
-    <script src="assets/js/dashboard.js"></script>
-
-
-@endpush
+</html>
