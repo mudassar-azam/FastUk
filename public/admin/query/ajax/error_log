@@ -1,0 +1,2 @@
+[19-Jan-2021 14:47:43 Africa/Ouagadougou] PHP Warning:  mysqli_connect(): (HY000/2002): Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2) in /home/w34ljh7iq6vp/public_html/kreem.canvasolutions.co.uk/query/connexion.php on line 2
+[19-Jan-2021 14:47:50 Africa/Ouagadougou] PHP Warning:  mysqli_connect(): (HY000/2002): Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2) in /home/w34ljh7iq6vp/public_html/kreem.canvasolutions.co.uk/query/connexion.php on line 2

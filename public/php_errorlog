@@ -1,0 +1,1 @@
+[22-Dec-2023 10:45:26 UTC] PHP Fatal error:  Cannot use Illuminate\Support\Facades\Mail as Mail because the name is already in use in /home/customer/www/fastukcouriers.co.uk/public_html/app/Http/Controllers/FrontController.php on line 14

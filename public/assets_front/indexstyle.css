@@ -1,0 +1,1065 @@
+
+* {
+  margin: 0;
+  padding: 0
+}
+
+html {
+    height: 100%
+}
+h1,h2,h3{
+    color:black;
+}
+.btn{
+    background-color:#f7b614;
+    color:black;
+}
+.btn:hover{
+    background-color:black;
+    color:white;
+}
+.main-site-logo{
+    border:none;
+    color:white;
+}
+#heading {
+    text-transform: uppercase;
+    color:lightgreen;
+    font-weight: normal;
+    padding:20px 0;
+}
+.header-buttons{
+    background-color:white;
+    padding:10px 40px;
+    color:#aa1818!important;
+    border:1px solid #aa1818;
+    font-weight:bold;
+    position:relative;
+    overflow:hidden;
+    transition:0.9s all ease-in;
+}
+.header-buttons .animation-button{
+    position:absolute;
+    width:100%;
+    height:100%;
+    padding:10px 40px;
+    background-color:#aa1818;
+    top:0;
+    left:-100%;
+    visibility:hidden;
+    transition:0.2s all ease-in;
+    color:white!important;
+    z-index:-1;
+}
+.header-buttons:hover .animation-button{
+    left:0;
+    visibility:visible;
+    z-index:1;
+}
+.header-buttons:hover{
+    color:white;
+}
+#msform {
+    text-align: center;
+    position: relative;
+    /*margin-top: 20px;*/
+    border:1px solid white;
+    background-color:white;
+    border-radius:30px;
+}
+
+#msform fieldset {
+    /*background: white;*/
+    border: 0 none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+    position: relative
+}
+
+.form-card {
+    text-align: left;
+}
+.form-card::after{
+    content:"";
+    display:table;
+    clear:both;
+}
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+#msform input,
+#msform textarea {
+    padding: 20px 15px 20px 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    display:inline-block;
+    width:97%;
+    box-sizing: border-box;
+    font-family:calibri;
+    color:black;
+    /*background-color:black;*/
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+#msform input:focus,
+#msform textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #aa1818;
+    outline-width: 0
+}
+
+#msform .action-button {
+    width: 100px;
+    background:#aa1818;
+    font-weight: bold;
+    color:white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 20px 10px 5px;
+    float: right;
+}
+#msform .action-button:hover,
+#msform .action-button:focus {
+    background-color:#0d3685;
+    color:white;
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    background:#aa1818;
+    font-weight: bold;
+    color:white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px 10px 0px;
+    float: right;
+}
+
+#msform .action-button-previous:hover,
+#msform .action-button-previous:focus {
+    background-color:#0d3685;
+    color:white;
+}
+.form-card-cargo{
+    background-color:#aa181891;
+    transform: scale(0.8);
+    border-radius:30px;
+}
+.services{
+    background-color:#aa1818;
+}
+.services svg{
+    margin:0 auto;
+}
+.m-button-banner{
+    display:none;
+}
+.m-header{
+    display:none;
+}
+@media only screen and (max-width:425px){
+    
+    .form-card-cargo #progressbar strong{
+        display: none;
+    }
+    .form-card-cargo{
+        transform: scale(1);
+    }
+    #msform .step-one .input-row {
+        display:block !important;
+    }
+    #msform .action-button {
+        margin:0 !important;
+    }
+    #msform .step-one .info-details,
+    #msform .steps-2 .info-details,
+    #msform .steps-3 .info-details,
+    #msform .steps-4 .info-details {
+        display:block !important;
+    }
+    #msform .action-button-previous {
+        margin:10px 0 !important;
+    }
+    #msform .fs-title,
+    #msform .steps{
+        text-align:center;
+    }
+    .m-button-banner{
+        border:none;
+        display:block;
+        background-color:#aa1818;
+        color:white;
+        margin-bottom:20px;
+        padding:15px 30px;
+        transform: translateX(-35%);
+    }
+    .large-hidden{
+        display:none !important;
+    }
+    .m-header{
+        display:flex;
+    }
+    #msform .steps-4 .payment-button {
+        flex-direction:column !important;
+    }
+    #msform .steps-4 .payment-button .stripe-paypal {
+        width:283px !important;
+    }
+    .modal-content {
+        width:100% !important;
+    }
+    #guestModal .modal-content .guest-buttons .create-guest,
+    #guestModal .modal-content .guest-buttons .already-guest
+    {
+        padding:10px 15px !important;   
+    }
+    .m-button-section{
+        border:none;
+        width: 60%;
+        float: right;
+    }
+}
+@media only screen and (min-width: 426px) and (max-width: 768px){
+    #msform .step-one .input-row {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    #msform .action-button {
+        margin:0 !important;
+    }
+    .large-hidden{
+        display:none !important;
+    }
+    .m-button-banner{
+        border:none;
+        display:block;
+        background-color:#aa1818;
+        color:white;
+        margin-bottom:20px;
+        padding:15px 30px;
+        font-size:25px;
+        transform: translateX(-35%);
+    }
+    .form-card-cargo{
+        transform: scale(0.9);
+    }
+    .m-header{
+        display:flex;
+    }
+    #msform .steps-2 .box_data {
+        flex-wrap:nowrap;
+    }
+    #msform .steps-2 .box_data .chosevehicle {
+        width:30% !important;
+    }
+    #msform .action-button-previous {
+        margin:10px 0 !important;
+    }
+    #msform .steps-3 .box_data {
+        flex-direction:column;
+    }
+    #msform .steps-3 .box_data .sub_box_data {
+        width:100% !important;
+    }
+    .modal-content {
+        width:70% !important;
+    }
+    .m-button-section{
+        border: none;
+        width: 37%;
+        float: right;
+        margin-top: -107px;
+    }
+}
+@media only screen and (min-width: 769px) and (max-width:1024px){
+    #msform .step-one .input-row {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    #msform .action-button {
+        margin:0 !important;
+    }
+    .large-hidden{
+        display:none !important;
+    }
+    .m-button-banner{
+        border:none;
+        display:block;
+        background-color:#aa1818;
+        color:white;
+        margin-bottom:20px;
+        padding:15px 30px;
+        font-size:25px;
+        transform: translateX(-100%);
+    }
+    .form-card-cargo{
+        transform: scale(0.9);
+    }
+    .m-header{
+        display:flex;
+    }
+    #msform .steps-2 .box_data {
+        flex-wrap:nowrap;
+    }
+    #msform .steps-2 .box_data .chosevehicle {
+        width:30% !important;
+    }
+    #msform .action-button-previous {
+        margin:0px 5px 10px 0px !important;
+    }
+    .modal-content {
+        width:70% !important;
+    }
+    .m-button-section{
+        border: none;
+        width: 37%;
+        float: right;
+        margin-top: -107px;
+    }
+}
+
+#msform .step-one{
+    padding:20px;
+}
+#msform .step-one .info-details{
+    display:flex;
+    justify-content: space-between;
+    border:none;
+}
+#msform .step-one .input-row{
+    display: flex;
+    flex-direction: row;
+
+}
+#msform .steps-2{
+    width:100%;
+}
+#msform .steps-2 .info-details{
+    border:none;
+    display:flex;
+    justify-content: space-between;
+    padding:20px;
+}
+#msform .steps-2 .box_data{
+    border:none;
+    display:flex;
+    flex-direction: row;
+    padding:10px;
+    flex-wrap:wrap;
+}
+#msform .steps-2 .box_data .chosevehicle{
+    position:relative;
+    width:23%;
+    text-align:center;
+    border:1px solid #aa1818;
+    background:white;
+    cursor:pointer;
+    margin:10px;
+    border-radius:6px;
+    box-shadow:0px 0px 10px 0 rgba(0,0,0,0.3)
+}
+#msform .steps-2 .box_data .chosevehicle label img{
+    width: 50%;
+    padding: 10px;
+    display: block;
+    margin: 0 auto;
+}
+#msform .steps-3{
+    width:100%;
+    border:none;
+}
+#msform .steps-3 .info-details{
+    border:none;
+    display:flex;
+    justify-content:space-between;
+    padding:20px;
+}
+#msform .steps-3 .box_data{
+    display: flex;
+    width:100%;
+    border:none;
+    justify-content: space-between;
+}
+#msform .steps-3 .box_data .sub_box_data{
+    width:50%;
+    padding:20px;
+}
+
+#msform .steps-4{
+    width:100%;
+    border:none;
+}
+#msform .steps-4 .info-details{
+    border:none;
+    display:flex;
+    justify-content: space-between;
+    padding:20px;
+}
+#msform .steps-4 .payment-button{
+    border:none;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+}
+#msform .steps-4 .payment-button button{
+    padding:15px 40px;
+    font-size:25px;
+}
+#msform .steps-4 .payment-button .stripe-payment{
+    background-color: #aa1818;
+    color:white;
+}
+#msform .steps-4 .payment-button .stripe-paypal{
+    background-color:#0d3685;
+    color:white;
+}
+/* stripe payment model styling */
+.stripe-payment-model{
+    border:none;
+}
+.stripe-payment-model .stripe-payment-form{
+    border:none;
+}
+.stripe-payment-model .stripe-payment-form .card-input{
+    border:none;
+    margin-top:10px;
+}
+.stripe-payment-model .stripe-payment-form .card-input label{
+    border:none;
+    width:100%;
+    display:block;
+    font-size:20px;
+    font-weight:bold;
+}
+.stripe-payment-model .stripe-payment-form .card-input input{
+    border:1px solid black;
+    font-style:normal;
+    width:100%;
+    display:block;
+    font-size:16px;
+    font-weight: normal;
+    padding:5px 0;
+    text-indent:10px;
+    outline:none;
+}
+.stripe-payment-model .stripe-payment-form .card-input input:focus{
+    border:1px solid #aa1818;
+    background-color:#aa181845;
+}
+.stripe-payment-model .stripe-payment-form .card-input-mini{
+    display:flex;
+    flex-direction: row;
+    margin-top:10px;
+    border:none
+    justify-content: space-between;
+    align-items:center;
+}
+.stripe-payment-model .stripe-payment-form .card-input-mini .form-group{
+    width:50%;
+}
+.stripe-payment-model .stripe-payment-form .card-input-mini .form-group .expiration-inputs{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-right:10px;
+}
+.stripe-payment-model .stripe-payment-form .card-input-mini label{
+    width:100%;
+    display:block;
+}
+.stripe-payment-model .stripe-payment-form .card-input-mini input{
+    border:1px solid black;
+    outline:none;
+    width:50%;
+    display:block;
+    padding:5px 0;
+    font-size:16px;
+    text-indent:10px;
+}
+.stripe-payment-model .stripe-payment-form .card-input-mini input:focus{
+    border:1px solid #aa1818;
+    background-color:#aa181845;
+}
+.stripe-payment-model .stripe-payment-form .card-input button{
+    padding:10px 40px;
+    font-size:20px;
+}
+
+/* guest model */
+#guestModal .modal-content,
+#loginmodel .modal-content{
+    border:none;
+}
+#loginmodel .modal-content h2{
+    font-size:35px;
+    font-weight:800;
+}
+#guestModal .modal-content .close2,
+#loginmodel .modal-content .close3{
+    border:none;
+    float:right;
+    padding:0;
+}
+
+#guestModal .modal-content .guest-buttons{
+    border:none;
+}
+
+#guestModal .modal-content .guest-buttons .already-guest{
+    border:none;
+    padding:10px 40px;
+    background-color:#aa1818;
+    color:white;
+    display:inline-block;
+    transition:0.6s all ease-in;
+}
+
+#guestModal .modal-content .guest-buttons .already-guest:hover{
+    background-color:#0d3685;
+    color:white;
+}
+#guestModal .modal-content .guest-buttons .create-guest{
+    border:none;
+    padding:10px 40px;
+    background-color:#0d3685;
+    color:white;
+    display:inline-block;
+    transition:0.6s all ease-in;
+    margin-left:10px;
+}
+#guestModal .modal-content .guest-buttons .create-guest:hover{
+    background-color:#aa1818;
+    color:white;
+}
+#guestModal .modal-content #enter_guest,
+#guestModal .modal-content #confirm_guest{
+    border:none;
+}
+
+#guestModal .modal-content #enter_guest label,
+#guestModal .modal-content #confirm_guest label,
+#loginmodel .modal-content #userLogin_form label{
+    display:block;
+    width:100%;
+    height:auto;
+    margin-top:20px;
+}
+#loginmodel .modal-content  #userLogin_form{margin-top:15px;}
+#guestModal .modal-content #enter_guest input,
+#guestModal .modal-content #confirm_guest input,
+#loginmodel .modal-content #userLogin_form input{
+    width: 100%;
+    display: block;
+    border-radius: 6px;
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 10%);
+    padding: 10px 0;
+    text-indent: 10px;
+    margin: 10px 0;
+    border: 1px solid #aa1818;
+    outline:none;
+    transition:0.6s all ease-in-out;
+}
+
+#guestModal .modal-content #enter_guest input:focus,
+#guestModal .modal-content #confirm_guest input:focus,
+#loginmodel .modal-content  #userLogin_form input:focus{
+    background-color:#aa1818;
+    outline:none;
+    color:white;
+}
+#loginmodel .modal-content .userLogin_button{margin-top:10px;}
+#guestModal .modal-content .checkguest,
+#loginmodel .modal-content .userLogin_button button{
+    background-color: #aa1818;
+    padding: 10px 40px;
+    color: white;
+    transition:0.6s all ease-in;
+    display:inline-block;
+}
+#guestModal .modal-content .checkguest:hover,
+#loginmodel .modal-content .userLogin_button button:hvoer,
+#loginmodel .modal-content .userLogin_forget:hover{
+    background-color:#0d3685;
+}
+
+#loginmodel .modal-content .userLogin_forget{
+    background-color: #0d3685;
+    padding: 10px 40px;
+    color: white;
+    transition:0.6s all ease-in;
+    display:inline-block;
+}
+.custom-services-button {
+    font-size: 16px;
+    font-weight: 700;
+    color: black;
+    padding: 15px 25px;
+    border-radius: 8px;
+    background-color: white;
+    transition: all .3s ease-in-out;
+}
+.custom-left-button {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    background-color: #aa1818;
+    transition: all .3s ease-in-out;
+}
+.send-submit{
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 8px;
+    background-color: #aa1818;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
+.contact-number,
+.contact-email{
+    color:#aa1818;
+}
+.card {
+    z-index: 0;
+    border: none;
+    position: relative;
+}
+
+.fs-title {
+    font-size: 25px;
+    color:black;
+    margin-bottom: 15px;
+    font-weight: normal;
+    text-align: left;
+}
+
+.purple-text {
+    color: white;
+    font-weight: normal
+}
+
+.steps {
+    font-size: 25px;
+    color: grey;
+    margin-bottom: 10px;
+    font-weight: normal;
+    text-align: right
+}
+
+.fieldlabels {
+    color:black;
+    text-align: left;
+    float:left;
+    width:100%;
+}
+
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color:black;
+    padding:20px;
+}
+
+#progressbar .active {
+    color:#aa1818;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 15px;
+    width: 25%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+}
+
+#progressbar #account:before {
+    font-family: FontAwesome;
+    content: "\f124"
+}
+
+#progressbar #personal:before {
+    font-family: FontAwesome;
+    content: "\f1b9"
+}
+
+#progressbar #payment:before {
+    font-family: FontAwesome;
+    content: "\f09d"
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "\f00c"
+}
+
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 20px;
+    color: #aa1818;
+    /*background:black;*/
+    border-radius: 50%;
+    border:1px solid #aa1818;
+    margin: 0 auto 10px auto;
+    padding: 2px
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background:black;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background:#aa1818;
+    color:white;
+}
+
+.progress {
+    height: 20px;
+}
+
+.progress-bar {
+    background-color: #aa1818;
+}
+
+.fit-image {
+    width: 100%;
+    object-fit: cover
+}
+.headone{
+    background-color:#aa1818;
+}
+.head .inner{
+    border:none;
+}
+.head .inner nav{
+    border:none;
+}
+.head .inner nav .nav{
+    border:none;
+}
+.head .inner nav .nav > li.sub > a{
+    border:none;
+    color:white !important;
+    background-color:transparent !important;
+    transition-delay:0s;
+    transition-duration:0.5s;
+    transition-property:background-color,color;
+}
+.head .inner nav .nav > li.sub > a:hover{
+    background-color:transparent !important;
+    color:black !important;
+}
+.headone .inner nav .nav > li.sub > a{
+    color:white !important;
+}
+.head .inner nav > ul.nav__right{
+    border:none;
+}
+.head .inner nav > ul.nav__right > li{
+    border:none;
+}
+.head .inner nav > ul.nav__right > li > a{
+    color:white;
+}
+.head .inner nav > ul.nav__right > li > a:hover{
+    color:#aa1818;
+}
+.headone .inner nav > ul.nav__right > li > a:hover{
+    color:black;
+}
+.headone .inner nav > ul.nav__right > li > a{
+    color:white;
+}
+.head .language__switch>a {
+    color:white;
+}
+.head .language__switch>a:hover{
+    color:dodgerblue;
+}
+.headone .language__switch>a{
+    color:lightgreen;
+}
+.headone .language__switch>a:hover{
+    color:white;
+}
+.pac-container {
+    border:none;
+    width:500px !important;
+}
+
+/* media query for form */
+@media only screen and (max-width: 786px){
+
+    #msform input,
+    #msform textarea {
+        width:100% !important;
+        display:block !important;
+    }
+    .fieldlabels {
+        width:100% !important;
+        float:none !important;
+    }
+}
+
+
+      /* The Modal (background) */
+  .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto;
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+
+/* The Close Button */
+.close ,.close2  ,.close3 {
+    color: #aaaaaa;
+    /*float: right !important;*/
+    font-size: 28px;
+    font-weight: bold;
+    padding-left: 478px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.close2:hover,
+.close2:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.close3:hover,
+.close3:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Dropdown on hover */
+.dropdown{
+    border:none;
+    position:relative;
+    display:inline-block;
+}
+.dropdown .dropdown-content{
+    position:absolute;
+    display:none;
+    width:50px !important;
+    height:50px !important;
+    transition-property:width,height;
+    transition-duration:.5s;
+    transition-delay:0s;
+    transition-timing-function:cubic-bezier(0.55, 0.08, 0.3, 0.57);
+    z-index:99999 !important;
+    background-color:#ab1818;
+    overflow:hidden !important;
+    animation:dropdown .5s ease forwards;
+    text-transform:uppercase;
+    border-radius:10px;
+
+}
+.dropdown:hover .dropdown-content{
+    display:block;
+    height:auto !important;
+    width:400px !important;
+    transition:all .5s cubic-bezier(0.55, 0.08, 0.3, 0.57);
+    box-shadow:0 0 10px 0 rgba(0,0,0,0.5);
+}
+.dropdown-content ul{
+    width:100%;
+    margin:0;
+    padding:0;
+}
+.dropdown-content ul li{
+    border-bottom:1px solid white;
+    width:100%;
+    padding:0.3rem 0.5rem;
+    transition:all .5s ease-in;
+
+}
+.dropdown-content ul li:hover{
+    background-color:#3e4095;
+    transition:all .5s ease-in;
+    animation:waqar .5s ease-in-out forwards;
+}
+@keyframes dropdown{
+    0%{
+        opacity:0;
+        top:150px;
+    }
+    50%{
+        opacity:0.5;
+        top:60px;
+    }
+    100%{
+        opacity:1;
+    }
+}
+@keyframes waqar{
+    0%{
+        text-indent:30px;
+    }
+    100%{
+        text-indent:0;
+    }
+}
+
+/* The container */
+.container-form-radio {
+  display: block;
+  position: absolute;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  top: -12px;
+  left: -10px;
+}
+
+/* Hide the browser's default radio button */
+.container-form-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 30px;
+  width: 30px;
+  background-color: #0d3685;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container-form-radio:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container-form-radio input:checked ~ .checkmark {
+  background-color: #aa1818;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container-form-radio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container-form-radio .checkmark:after {
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: white;
+    transform: translate(-50%, -50%);
+}
+
+.pre-login-buttons{
+    border:none;
+    flex-direction:column !important;
+    position:absolute;
+    top:-150px;
+    width:100%;
+}
+.pre-landing-button-one{
+   display:none;
+}
+@media only screen and (max-width: 428px) {
+.pre-login-buttons{
+    border: none;
+    flex-direction: row !important;
+    position: static !important;
+    /*top: 127px;*/
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-top: 18px;
+}
+#msform .steps-2 .box_data .chosevehicle{width:100%;margin-top:20px;}
+#msform .steps-3 .box_data {display:block;width:100%;}
+#msform .steps-3 .box_data .sub_box_data {width:100%;}
+.pre-landing-button-one{
+    /*align-self:end;*/
+    border-radius: 10px;
+    background-color:#3c3e96 !important;
+    border:none;
+    padding:10px 0px !important;
+    width:131px;
+    display:block;
+    font-size:12px !important;
+    color:white;
+}
+}
