@@ -4,132 +4,68 @@
 @endsection
 
 @section('content')
-    <form method="post" action="{{url('user/save-profile')}}" enctype="multipart/form-data">
+    <form method="post" action="{{ url('user/save-profile') }}" enctype="multipart/form-data">
         @csrf
-    <div class="row">
-
-        <div class="col-md-12" >
-            <div class="row" >
-                <div class="col-md-1"></div>
-                <div class="col-md-5">
-
-                    <img src="{{ asset('public/authuserimage/' . auth()->user()->image) }}" alt="Admin" id='pic_circlce' onclick="select_img()" class="rounded-circle" width="150">
-                    <input type="file" name="usr_img" id="usr_img" onChange="displayImage(this)" style="display: none;"  />
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <img src="{{ asset('authuserimage/' . auth()->user()->image) }}" alt="Admin" id="pic_circlce" onclick="select_img()" class="rounded-circle" width="150">
+                    <input type="file" name="usr_img" id="usr_img" onChange="displayImage(this)" style="display: none;" />
                     <div class="mt-3">
-                        <h4>{{auth()->user()->name}}</h4>
+                        <h4>{{ auth()->user()->name }}</h4>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-12">
-
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-6">
                     <div class="card mb-3">
-                        <div class="card-body" style=" border: none;
-    box-shadow: 0px 0px 8px 6px rgb(64 118 146 / 72%);">
-
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Company Name :</h6>
+                        <div class="card-body" style="border: none; box-shadow: 0px 0px 8px 6px rgb(64 118 146 / 72%);">
+                            <!--  Name -->
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <h6 class="mb-0">Name:</h6>
                                 </div>
-                                <div class="col-sm-9 ">
-                                    <input class="form-control" name="company_name" value="{{$userdata->company_name}}" >
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Contact Name :</h6>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input class="form-control" name="name" value=" {{$userdata->name}}" >
-
+                                <div class="col-sm-8">
+                                    <input class="form-control" name="name" value="{{ $userdata->name }}" required>
                                 </div>
                             </div>
                             <hr>
 
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Email :</h6>
+                            <!-- Email -->
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <h6 class="mb-0">Email:</h6>
                                 </div>
-                                <div class="col-sm-9 ">
+                                <div class="col-sm-8">
+                                    <input class="form-control" name="email" value="{{ $userdata->email }}" readonly>
+                                </div>
+                            </div>
+                            <hr>
 
-                                    <input class="form-control" name="email" value="{{$userdata->email}}" readonly >
+                            <!-- Mobile -->
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <h6 class="mb-0">Mobile:</h6>
                                 </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Phone :</h6>
-                                </div>
-                                <div class="col-sm-9 ">
-
-                                    <input class="form-control" name="telephone" value="{{$userdata->telephone}}" >
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Mobile :</h6>
-                                </div>
-                                <div class="col-sm-9 ">
-
-                                    <input class="form-control" name="phone" value="{{$userdata->phone}}" >
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Invoice Address :</h6>
-                                </div>
-                                <div class="col-sm-9 ">
-                                    <input class="form-control" name="address" value="{{$userdata->address}}" >
-                                </div>
-                            </div>
-                             <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Trading Address :</h6>
-                                </div>
-                                <div class="col-sm-9 ">
-                                    <input class="form-control" name="company_address" value="{{$userdata->company_address}}" >
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">VAT Number :</h6>
-                                </div>
-                                <div class="col-sm-9 ">
-                                    <input class="form-control" name="company_vet" value="{{$userdata->company_vet}}" >
+                                <div class="col-sm-8">
+                                    <input class="form-control" name="phone" value="{{ $userdata->phone }}" required>
                                 </div>
                             </div>
 
                             <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Image :</h6>
-                                </div>
-                                <div class="col-sm-9 ">
-                                    <input style="padding: 0.4rem;" type="file" class="form-control" name="image">
+
+                            <!-- Save Changes Button -->
+                            <div class="row mt-4">
+                                <div class="col text-center">
+                                    <button type="submit" class="btn btn-primary">Save Changes <i class="mdi mdi-autorenew"></i></button>
                                 </div>
                             </div>
-
                         </div>
-                        <button type="submit" >Save Change <i class="mdi mdi-autorenew"></i></button>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
-
-    </div>
-
     </form>
 @endsection
 
@@ -139,12 +75,12 @@
 @push('custom-scripts')
     <script>
         function select_img() {
-            $('#usr_img').click();
+            document.getElementById('usr_img').click();
         }
         function displayImage(e) {
             if (e.files[0]) {
                 var reader = new FileReader();
-                reader.onload = function(e){
+                reader.onload = function(e) {
                     document.querySelector('#pic_circlce').setAttribute('src', e.target.result);
                 }
                 reader.readAsDataURL(e.files[0]);

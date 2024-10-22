@@ -182,23 +182,15 @@
     </div>
 
 </div>
-
-
-
 <div id="guestModal" class="modal">
-
-
 
     <!-- Modal content -->
 
-    <form method="post" action="javascript:void(0);" name="formguest">
+    <form method="post" action="javascript:void(0);" name="formguest" >
 
-        <div class="modal-content">
+        <div class="modal-content"style="border-radius: 1em;">
 
             <span class="close2">&times;</span>
-
-            <h3 class="guest-buttons"><a class="already-guest" href="javascript:void(0);">Already Guest</a><a
-                    class="create-guest" href="javascript:void(0);">Create Guest</a></h3>
 
             <div class="row" id="enter_guest" style="display:none;" class="guest-form">
 
@@ -208,7 +200,7 @@
 
                     <label>Name</label>
 
-                    <input type="text" class="form-control" name="guestname" required />
+                    <input type="text" class="form-control" name="guestname" required/>
 
                 </div>
 
@@ -232,7 +224,7 @@
 
                     <label>Choose Guest Secret Track ID</label>
 
-                    <input type="text" class="form-control" name="track_id" required />
+                    <input type="text" class="form-control" name="track_id" required/>
 
                 </div>
 
@@ -252,27 +244,25 @@
 
                 </div>
 
-
-
             </div>
 
             <div class="row" id="confirm_guest" class="guest-form">
 
                 <div class="col-md-12">
 
-                    <label>Enter Your Track Id</label>
+                    <label>Your Track Id</label>
 
                     <div class="row">
 
                         <div class="col-md-8">
 
-                            <input type="text" class="form-control" name="trackid" />
+                            <input type="text" class="form-control" name="trackid" readonly/>
 
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-3" style="margin: auto;">
 
-                            <button class="checkguest" id="checkguest" type="button">confirm</button>
+                            <button class="checkguest" id="checkguest" type="button"style="border-radius: 0.5em;">confirm</button>
 
                         </div>
 
@@ -280,25 +270,20 @@
 
                 </div>
 
-
-
             </div>
 
             <br>
 
-            <button class="checkguest" id="guestform" onclick="guestcreate()" style="display:none;">Create</button>
-
-
+            <button class="checkguest" id="guestform"  onclick="guestcreate()" style="display:none;" >Create</button>
 
         </div>
 
     </form>
 
 
-
-
-
 </div>
+
+
 
 
 

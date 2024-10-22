@@ -14,14 +14,77 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Session;
 use App\Models\GuestExtraAddresses;
-
+use Illuminate\Support\Str;
 use Mail;
 
 class GuestController extends Controller
 
 {
+    public function guestBooking(Request $request)
+    {
+       
 
+        try {
+            $track_id = Str::random(12); 
+    
+            $already_id = guest::where('track_id', $track_id)->first();
+    
+            if ($already_id != null) {
+                return response()->json(['status' => 'already_id']);
+            }
+    
+            $guest = new guest();
+            $guest->track_id = $track_id;
+            
+            $guest->save();
+    
+            
+            return response()->json(['status' => 'done', 'track_id' => $guest->track_id]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+        }
+    }
 
+    public function getlogin(Request $request)
+    {
+      return view("auth.guestlogin");
+    }
+    
+    public function guestlogin(Request $request)
+    {
+    
+                $trackId = $request->trackid;
+            
+                $check = guest::where('track_id', $trackId)->first();
+            
+                if (is_null($check)) {
+                    return response()->json(['status' => 0]);
+                }
+            
+                return response()->json(['status' => 1]);
+            }
+        
+    
+    
+        public function logged(Request $request)
+        {
+            $track_id=$request->track_id;
+    
+            $check=guest::where('track_id',$track_id)->first();
+    
+            if($check == null){
+    
+                return response()->json(['status'=>0]);
+    
+            }else{
+                   session()->put('track_id', $check->track_id);
+    
+            $booking = guest_booking::where('guest_id', $check->track_id)->get();
+    
+            return view('pages.guest_home', compact('booking'));
+        }
+    }
+        
 
     public function index(Request $request){
 
@@ -35,7 +98,6 @@ class GuestController extends Controller
 
         $address=$request->address;
 
-//        $track_id=generateRandomString();
 
         $track_id=$request->track_id;
 

@@ -1896,7 +1896,7 @@ btn2.onclick = function(e) {
     if (animalType != '') {
 
 
-        guestModal.style.display = "block";
+        guestModal.style.display = "none";
         document.getElementById("myBtn2").style.display = "none";
         document.getElementById("myBtn3").style.display = "none";
         btn.style.display = "block";
@@ -2291,44 +2291,4 @@ document.getElementById('addCollectionButton').addEventListener('click', functio
     addCollectionFieldset();
     addRequiredAttributes(fieldsetCount);
 });
-
-</script>
-<script>
-      document.getElementById('myBtn2').addEventListener('click', function () {
-     
-     const guestTrackId = this.getAttribute('data-check');
-     // Create a FormData object to gather the form data
-     const formData = new FormData(document.getElementById('msform'));
-     formData.append('guest_track_id', guestTrackId);
-
-     // Send AJAX POST request
-     fetch("{{ route('book.guestBooking') }}", {
-         method: 'POST',
-         body: formData,
-         headers: {
-             'X-CSRF-TOKEN': '{{ csrf_token() }}'
-         }
-     })
-     .then(response => {
-         console.log('Response status:', response.status);
-         return response.json(); // Ensure we parse the JSON
-     })
-     .then(data => {
-         console.log('Response data:', data);
-         // Handle success or error messages
-         if (data.status === 'done') {
-             // Show the generated track_id in the input fields
-             document.querySelector('input[name="track_id"]').value = data.track_id; // Append track_id to the appropriate input field
-             document.querySelector('input[name="trackid"]').value = data.track_id; // Also show in the trackid field
-         } else if (data.status === 'already_id') {
-             alert('Track ID already exists.');
-         } else {
-             alert('Booking failed: ' + data.message);
-         }
-     })
-     .catch(error => {
-         console.error('Error:', error);
-         alert('An error occurred. Check the console for more details.');
-     });
- });
 </script>

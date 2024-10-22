@@ -61,6 +61,11 @@ Route::get('/destroyguest', [App\Http\Controllers\GuestController::class, 'destr
 Route::get('/guest-home-page', [App\Http\Controllers\GuestController::class, 'page_guest_home'])->name('page.guest_home')->middleware('authguest');
 Route::get('/guest-extra-addresses/{id}', [App\Http\Controllers\GuestController::class, 'extra'])->name('guest.extra')->middleware('authguest');
 
+Route::post('/guest-booking', [App\Http\Controllers\GuestController::class, 'guestBooking'])->name('book.guestBooking');
+Route::get('/loginguest', [App\Http\Controllers\GuestController::class, 'getlogin'])->name('login.guest');
+Route::post('/loginguest', [App\Http\Controllers\GuestController::class, 'guestlogin'])->name('guest.login');
+Route::post('/logged', [App\Http\Controllers\GuestController::class, 'logged'])->name('logged');
+
 
 Route::group(['prefix' => 'user'], function () {
 
