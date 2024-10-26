@@ -364,10 +364,39 @@ $data = DB::table('homepages')->first();
                                 <textarea style="width: 99% !important;" name="additional_notes" id="additional_notes"
                                     rows="5"></textarea>
                             </label>
-                            <div style="display: flex; gap: 1em; align-items: center; justify-content: center">
+                            <div style="display: flex; gap: 1em; align-items: center; justify-content: right;">
                                 <div>
-                                    <button class="action-button" style="width: 100%" type="button"
-                                        id="addCollectionButton">Add Address</button>
+                                        <div style="text-align:center; margin-top:2em;">
+                                            <button class="add-address-btn" id="addCollectionButton"> + Add Additional Address</button>
+                                            <p class="button-description">Click to add a new address entry</p>
+                                        </div>
+
+                                        <style>
+                                            .add-address-btn {
+                                                background: linear-gradient(45deg, #AA1818, #0D3685);
+                                                color: #fff;
+                                                padding: 15px 30px;
+                                                border: none;
+                                                border-radius: 8px;
+                                                font-size: 1.1em;
+                                                font-weight: bold;
+                                                cursor: pointer;
+                                                transition: all 0.3s ease;
+                                                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                                            }
+
+                                            .add-address-btn:hover {
+                                                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+                                                transform: translateY(-3px);
+                                            }
+
+                                            .button-description {
+                                                font-size: 0.9em;
+                                                color: #555;
+                                                margin-top: 0.5em;
+                                            }
+                                        </style>
+
                                 </div>
                             </div>
                             <div class="additional-collection-fields-container"></div>
@@ -1349,61 +1378,6 @@ function addRequiredAttributes(fieldsetCount) {
     });
 }
 
-// function collectDynamicFieldsetData() {
-//     const fieldsets = document.querySelectorAll('.additional-fields-set');
-//     const summaryContainer = document.querySelector('#summaryContainer');
-//     const dynamicData = [];
-//     summaryContainer.innerHTML = '';
-
-//     fieldsets.forEach((fieldset, index) => {
-//         const data = {};
-        
-//         data['address_type'] = fieldset.querySelector(`select[name="address_type_${index + 1}"]`).value;
-//         data['package_type'] = fieldset.querySelector(`select[name="package_type_${index + 1}"]`).value;
-//         data['quantity'] = fieldset.querySelector(`input[name="quantity_${index + 1}"]`).value;
-//         data['weight'] = fieldset.querySelector(`input[name="weight_${index + 1}"]`).value;
-//         data['unit'] = fieldset.querySelector(`select[name="unit_${index + 1}"]`).value;
-//         data['length'] = fieldset.querySelector(`input[name="length_${index + 1}"]`).value;
-//         data['width'] = fieldset.querySelector(`input[name="width_${index + 1}"]`).value;
-//         data['height'] = fieldset.querySelector(`input[name="height_${index + 1}"]`).value;
-//         data['size_unit'] = fieldset.querySelector(`select[name="size_unit_${index + 1}"]`).value;
-//         data['collection_point'] = fieldset.querySelector(`input[name="from_${index + 1}"]`)?.value || '';
-//         data['delivery_point'] = fieldset.querySelector(`input[name="to_${index + 1}"]`)?.value || '';
-//         data['additional_notes'] = fieldset.querySelector(`textarea[name="additional_notes_${index + 1}"]`).value;
-//         data['company_name'] = fieldset.querySelector(`input[name="company_name1_${index + 1}"]`).value;
-//         data['contact_name'] = fieldset.querySelector(`input[name="contact_name1_${index + 1}"]`).value;
-//         data['contact_tele'] = fieldset.querySelector(`input[name="contact_tele1_${index + 1}"]`).value;
-//         data['postal_code'] = fieldset.querySelector(`input[name="postal_code1_${index + 1}"]`).value;
-        
-//         dynamicData.push(data);
-
-//         const summaryDiv = document.createElement('div');
-//         summaryDiv.className = 'summary-fieldset';
-//         summaryDiv.innerHTML = `
-//             <h3>Summary for Set ${index + 1}</h3>
-//             <p><strong>Address Type:</strong> ${data['address_type']}</p>
-//             <p><strong>Package Type:</strong> ${data['package_type']}</p>
-//             <p><strong>Quantity:</strong> ${data['quantity']}</p>
-//             <p><strong>Weight:</strong> ${data['weight']} ${data['unit']}</p>
-//             <p><strong>Dimensions:</strong> ${data['length']} x ${data['width']} x ${data['height']} ${data['size_unit']}</p>
-//             <p><strong>Collection Point:</strong> ${data['collection_point']}</p>
-//             <p><strong>Delivery Point:</strong> ${data['delivery_point']}</p>
-//             <p><strong>Company Name:</strong> ${data['company_name']}</p>
-//             <p><strong>Contact Name:</strong> ${data['contact_name']}</p>
-//             <p><strong>Contact Telephone:</strong> ${data['contact_tele']}</p>
-//             <p><strong>Postal Code:</strong> ${data['postal_code']}</p>
-//             <p><strong>Additional Notes:</strong> ${data['additional_notes']}</p>
-//             <hr>
-//         `;
-//         summaryDiv.style.cssText = 'padding: 1em; border: 1px solid gray; border-radius: 10px;box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);';
-
-
-//         summaryContainer.appendChild(summaryDiv);
-//     });
-    
-    
-//     return dynamicData;
-// }
 function collectDynamicFieldsetData() {
     const fieldsets = document.querySelectorAll('.additional-fields-set');
     const summaryContainer = document.querySelector('#summaryContainer');
@@ -2154,6 +2128,10 @@ $("#checkguest").click(function() {
         newFieldset.classList.add('additional-fields-set');
         newFieldset.innerHTML = `
             <div class="form-card step-one">
+                <div style=" margin: 0 0 2em 0;font-size: 1.5rem;text-transform: uppercase;font-weight: bold; ">
+                    <h2 id="addressHeading" style="color:#AA1818;">Additional Point # ${fieldsetCount}</h2>
+                    <hr />
+                </div>
                 <div class="input-row">
                     <label class="fieldlabels">Address Type: *
                         <select id="addressType_${fieldsetCount}" name="address_type_${fieldsetCount}" style="width: 95%; border: 1px solid #ccc; color: black; border-radius: 6px; height: 4.5em;">
