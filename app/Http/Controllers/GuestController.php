@@ -247,10 +247,10 @@ class GuestController extends Controller
 
     public function extra($id){
 
-
-        $booking = GuestExtraAddresses::where('booking_id',$id)->get();
-
-        return view('g-extra',compact('booking'));
+        $booking = guest_booking::find($id);
+        $cbooking=GuestExtraAddresses::where('booking_id', $id)->where('address_type' , 'collection')->orderBy('id', 'desc')->get();
+        $dbooking=GuestExtraAddresses::where('booking_id', $id)->where('address_type' , 'delivery')->orderBy('id', 'desc')->get();
+        return view('g-extra',compact('booking','cbooking','dbooking'));
 
     }
 

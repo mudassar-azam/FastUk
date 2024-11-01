@@ -198,8 +198,114 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Address Type</th>
                             <th>Collection Point</th>
+                            <th>Delivery Point</th>
+                            <th>Package Type</th>
+                            <th>Quantity</th>
+                            <th>Weight</th>
+                            <th>Unit</th>
+                            <th>Length</th>
+                            <th>Width</th>
+                            <th>Height</th>
+                            <th>Size Unit</th>
+                            <th>PickUp Date</th>
+                            <th>PickUp Time Type</th>
+                            <th>Distance</th>
+                            <th>Price</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="success">
+                            <td>{{$booking->from_address ?? '-'}}</td>
+                            <td>{{$booking->to_address ?? '-'}}</td>
+                            <td>{{$booking->package_type}}</td>
+                            <td>{{$booking->quantity}}</td>
+                            <td>{{$booking->weight}}</td>
+                            <td>{{$booking->unit}}</td>
+                            <td>{{$booking->length}}</td>
+                            <td>{{$booking->width}}</td>
+                            <td>{{$booking->height}}</td>
+                            <td>{{$booking->size_unit}}</td>
+                            <td>{{$booking->booking_date}}</td>
+                            <td>{{$booking->pickup_time_type}}</td>
+                            <td>{{$booking->distance}}</td>
+                            <td>{{$booking->price}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+    @if($cbooking->isNotEmpty())
+    <section class="content gradient">
+        <div class="container mx-auto px-4">
+            <div class="table-header-id" style="display: flex;">
+                <h2 style="flex: 1; font-weight: bold; font-size:32px;">Additinal Collection Points</h2>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Linked To</th>
+                            <th>Collection Point</th>
+                            <th>Package Type</th>
+                            <th>Quantity</th>
+                            <th>Weight</th>
+                            <th>Unit</th>
+                            <th>Length</th>
+                            <th>Width</th>
+                            <th>Height</th>
+                            <th>Size Unit</th>
+                            <th>Company Name</th>
+                            <th>Contact Name</th>
+                            <th>Contact Number</th>
+                            <th>Postal Code</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach($cbooking as $bookings)
+                        <tr class="success">
+                            <td>{{$bookings->linked_to}}</td>
+                            <td>{{$bookings->collection_point ?? '-'}}</td>
+                            <td>{{$bookings->package_type}}</td>
+                            <td>{{$bookings->quantity}}</td>
+                            <td>{{$bookings->weight}}</td>
+                            <td>{{$bookings->unit}}</td>
+                            <td>{{$bookings->length}}</td>
+                            <td>{{$bookings->width}}</td>
+                            <td>{{$bookings->height}}</td>
+                            <td>{{$bookings->size_unit}}</td>
+                            <td>{{$bookings->company_name}}</td>
+                            <td>{{$bookings->contact_name}}</td>
+                            <td>{{$bookings->contact_tele}}</td>
+                            <td>{{$bookings->postal_code}}</td>
+                        </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+    @endif
+    @if($dbooking->isNotEmpty())
+    <section class="content gradient">
+        <div class="container mx-auto px-4">
+            <div class="table-header-id" style="display: flex;">
+                <h2 style="flex: 1; font-weight: bold; font-size:32px;">Additinal Delivery Points</h2>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Linked To</th>
                             <th>Delivery Point</th>
                             <th>Package Type</th>
                             <th>Quantity</th>
@@ -218,10 +324,9 @@
                     </thead>
                     <tbody>
 
-                        @foreach($booking as $bookings)
+                        @foreach($dbooking as $bookings)
                         <tr class="success">
-                            <td>{{$bookings->address_type}}</td>
-                            <td>{{$bookings->collection_point ?? '-'}}</td>
+                            <td>{{$bookings->linked_to}}</td>
                             <td>{{$bookings->delivery_point ?? '-'}}</td>
                             <td>{{$bookings->package_type}}</td>
                             <td>{{$bookings->quantity}}</td>
@@ -241,13 +346,15 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
     </section>
+    @endif
 
     <!-- Footer Section -->
     <footer>
 
-        <section class="dark-box" style="position: absolute;bottom: 0;width: 100%;margin-bottom: 0em;">
+        <section class="dark-box" style="width: 100%;margin-bottom: 0em;">
             <div class="container pt-6 md:pt-0 mx-auto md:flex justify-between items-center">
                 <div class="md:w-1/2 text-base text-light text-white text-center md:text-left">Copyright © 2024 Fastuk.
                     All rights reserved. | <a href="https://wearesameday.com/privacy-policy/">Privacy Policy</a> | <a

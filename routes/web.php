@@ -15,8 +15,6 @@ Route::get('/1', function () {
 
 
 Route::get('/', function () {
-    $binfo = unserialize(base64_decode(session('binfo')));
-    session()->forget('binfo');
     return view('landing');
 });
 

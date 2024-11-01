@@ -160,6 +160,8 @@ $data = DB::table('homepages')->first();
                                     </select>
                                 </label>
 
+
+
                                 <div class="fieldlabels pickup-fields">
                                     <label id="pickupAtLabel" style="display:none;">Pickup At: *
                                         <input type="time" name="p_time_at" STYLE="height: 3.6em; border-radius: 7px;"
@@ -1391,6 +1393,7 @@ function collectDynamicFieldsetData() {
         data['package_type'] = fieldset.querySelector(`select[name="package_type_${index + 1}"]`).value;
         data['quantity'] = fieldset.querySelector(`input[name="quantity_${index + 1}"]`).value;
         data['weight'] = fieldset.querySelector(`input[name="weight_${index + 1}"]`).value;
+        data['linked_to'] = fieldset.querySelector(`input[name="linked_to_${index + 1}"]`).value;
         data['unit'] = fieldset.querySelector(`select[name="unit_${index + 1}"]`).value;
         data['length'] = fieldset.querySelector(`input[name="length_${index + 1}"]`).value;
         data['width'] = fieldset.querySelector(`input[name="width_${index + 1}"]`).value;
@@ -1409,7 +1412,12 @@ function collectDynamicFieldsetData() {
         const summaryDiv = document.createElement('div');
         summaryDiv.className = 'summary-fieldset';
         summaryDiv.innerHTML = `
-            <h3>Summary for Set ${index + 1}</h3>
+            <div style="display:flex;align-items:center;justify-content:center">
+                <span style="font-weight:bold;font-size:20px">Addition Address # ${index + 1}</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center">
+                <span style="font-weight:bold;font-size:20px">Linked To : ${data['linked_to']}</span>
+            </div>
             <p><strong>Address Type:</strong> ${data['address_type']}</p>
             <p><strong>Package Type:</strong> ${data['package_type']}</p>
             <p><strong>Quantity:</strong> ${data['quantity']}</p>
@@ -2145,6 +2153,9 @@ $("#checkguest").click(function() {
                             <input type="text" id="collection_point_${fieldsetCount}" name="from_${fieldsetCount}" placeholder="Collection Point" />
                         </label>
                     </div>
+                    <label class="fieldlabels">Linked To: *
+                        <input type="text" name="linked_to_${fieldsetCount}" placeholder="Link" />
+                    </label>
                 </div>
                 <div class="input-row" style="margin-top: none;">
                     <label class="fieldlabels">Package Type: *

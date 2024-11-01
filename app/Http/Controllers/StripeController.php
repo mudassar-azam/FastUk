@@ -150,6 +150,7 @@ class StripeController extends Controller
             if ($dynamicData && is_array($dynamicData)) {
                 foreach ($dynamicData as $data) {
                     $extraAddress = new GuestExtraAddresses();
+                    $extraAddress->linked_to = $data['linked_to'];
                     $extraAddress->address_type = $data['address_type'];
                     $extraAddress->package_type = $data['package_type'];
                     $extraAddress->quantity = $data['quantity'];
