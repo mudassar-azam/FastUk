@@ -84,18 +84,10 @@ class BookController extends Controller
 
             $booking->coll_phone =$data['ph1'];
 
-            $booking->coll_postal_code = $data['pc1'] ?? null; 
-
-            $booking->coll_city= $data['name1'] ?? null;
-
 
             $booking->deli_name = $data['company_name2'] ?? null;
 
             $booking->deli_phone = $data['ph2'] ?? null;
-
-            $booking->deli_postal_code = $data['pc2'] ?? null;
-
-            $booking->deli_city= $data['name2'] ?? null;
 
             $booking->length= $data['length'];
 
@@ -110,7 +102,7 @@ class BookController extends Controller
             $booking->distance= $distance;
 
             $booking->price= $data['ffinal'];
-
+            $booking->ref_no = $data['ref_no'];
 
 
         if ($request->paytype == "paypal"){
@@ -122,6 +114,7 @@ class BookController extends Controller
                 foreach ($dynamicData as $data) {
                     $extraAddress = new UserExtraAddresses();
                     $extraAddress->linked_to = $data['linked_to'];
+                    $extraAddress->ref_no = $data['auto_generated_id'];
                     $extraAddress->address_type = $data['address_type'];
                     $extraAddress->package_type = $data['package_type'];
                     $extraAddress->quantity = $data['quantity'];
@@ -135,9 +128,7 @@ class BookController extends Controller
                     $extraAddress->delivery_point = $data['delivery_point'];
                     $extraAddress->additional_notes = $data['additional_notes'];
                     $extraAddress->company_name = $data['company_name'];
-                    $extraAddress->contact_name = $data['contact_name'];
                     $extraAddress->contact_tele = $data['contact_tele'];
-                    $extraAddress->postal_code = $data['postal_code'];
                     $extraAddress->booking_id = $booking->id; 
                     $extraAddress->save();
                 }
@@ -254,31 +245,30 @@ class BookController extends Controller
 
                 $booking->vehicle_id = $vehicldata->id;
 
+                $booking->length= $data['length'];
+
+                $booking->height= $data['height'];
+    
+                $booking->width= $data['width'];
+    
+                $booking->size_unit= $data['size_unit'];
 
                 $booking->coll_name =$data['company_name1'];
 
                 $booking->coll_phone =$data['ph1'];
     
-                $booking->coll_postal_code = $data['pc1'] ?? null; 
-    
-                $booking->coll_city= $data['name1'] ?? null;
-    
     
                 $booking->deli_name = $data['company_name2'] ?? null;
     
                 $booking->deli_phone = $data['ph2'] ?? null;
-    
-                $booking->deli_postal_code = $data['pc2'] ?? null;
-    
-                $booking->deli_city= $data['name2'] ?? null;
 
                 $booking->status = 'pending';
 
-                $booking->distance = $request->distance;
+                $booking->distance= $distance;
 
                 $booking->price= $data['ffinal'];
 
-
+                $booking->ref_no = $data['ref_no'];
 
                 $booking->save();
 
@@ -288,6 +278,7 @@ class BookController extends Controller
                     foreach ($dynamicData as $data) {
                         $extraAddress = new GuestExtraAddresses();
                         $extraAddress->linked_to = $data['linked_to'];
+                        $extraAddress->ref_no = $data['auto_generated_id'];
                         $extraAddress->address_type = $data['address_type'];
                         $extraAddress->package_type = $data['package_type'];
                         $extraAddress->quantity = $data['quantity'];
@@ -301,9 +292,7 @@ class BookController extends Controller
                         $extraAddress->delivery_point = $data['delivery_point'];
                         $extraAddress->additional_notes = $data['additional_notes'];
                         $extraAddress->company_name = $data['company_name'];
-                        $extraAddress->contact_name = $data['contact_name'];
                         $extraAddress->contact_tele = $data['contact_tele'];
-                        $extraAddress->postal_code = $data['postal_code'];
                         $extraAddress->booking_id = $booking->id; 
                         $extraAddress->save();
                     }
@@ -482,18 +471,10 @@ class BookController extends Controller
 
             $booking->coll_phone =$data['ph1'];
 
-            $booking->coll_postal_code = $data['pc1'] ?? null; 
-
-            $booking->coll_city= $data['name1'] ?? null;
-
 
             $booking->deli_name = $data['company_name2'] ?? null;
 
             $booking->deli_phone = $data['ph2'] ?? null;
-
-            $booking->deli_postal_code = $data['pc2'] ?? null;
-
-            $booking->deli_city= $data['name2'] ?? null;
 
             $booking->length= $data['length'];
 
@@ -510,7 +491,7 @@ class BookController extends Controller
 
             $booking->price= $data['ffinal'];
 
-
+            $booking->ref_no = $data['ref_no'];
 
         if ($request->paytype == "paypal"){
 
@@ -662,21 +643,16 @@ class BookController extends Controller
 
                 $booking->vehicle_id = $vehicldata->id;
 
-                $booking->coll_name = $data['name1'];
+                $booking->ref_no = $data['ref_no'];
 
-                $booking->coll_phone = $data['ph1'];
+                $booking->coll_name =$data['company_name1'];
 
-                $booking->coll_address = $data['address1'];
-
-                $booking->coll_city = $data['city1'];
-
-                $booking->deli_name = $data['name2'];
-
-                $booking->deli_phone = $data['ph2'];
-
-                $booking->deli_address = $data['aaddress2'];
-
-                $booking->deli_city = $data['city2'];
+                $booking->coll_phone =$data['ph1'];
+    
+    
+                $booking->deli_name = $data['company_name2'] ?? null;
+    
+                $booking->deli_phone = $data['ph2'] ?? null;
 
                 $booking->length= $data['length'];
 
@@ -688,9 +664,9 @@ class BookController extends Controller
 
                 $booking->status = 'pending';
 
-                $booking->distance = $request->distance;
+                $booking->distance= $distance;
 
-                $booking->price= $price;
+                $booking->price= $data['ffinal'];
 
 
 
@@ -704,13 +680,13 @@ class BookController extends Controller
 
                    $data = array('data'=>$booking,'user'=>$guest);
 
-              Mail::send('invoice', $data, function($message) use ($request,$guest) {
+            //   Mail::send('invoice', $data, function($message) use ($request,$guest) {
 
-                    $message->to('sales@fastukcouriers.co.uk')->subject
+            //         $message->to('sales@fastukcouriers.co.uk')->subject
 
-                    ('Fast Uk Booking Confirm...');
+            //         ('Fast Uk Booking Confirm...');
 
-                });
+            //     });
 
 
 

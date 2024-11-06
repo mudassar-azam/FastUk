@@ -95,7 +95,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Book ID</th>
+                        <th>Reference ID</th>
                         <th>Departure Name</th>
                         <th>Destination Name</th>
                         <th>status</th>
@@ -110,6 +110,10 @@
                         <th>Height</th>
                         <th>Size Unit</th>
                         <th>Estimate Price</th>
+                        <th>Col Contact Name</th>
+                        <th>Col Contact Number</th>
+                        <th>Del Contact Name</th>
+                        <th>Del Contact Number</th>
                         <th>Extra Addresses</th>
                         <th>Action</th>
 
@@ -119,7 +123,7 @@
 
                     @foreach($booking as $bookings)
                         <tr class="success">
-                            <td>{{$bookings->id}}</td>
+                            <td>{{$bookings->ref_no}}</td>
                             <td>{{$bookings->from_address}}</td>
                             <td>{{$bookings->to_address}}</td>
                             <td>
@@ -149,11 +153,15 @@
                             <td>{{$bookings->quantity}}</td>
                             <td>{{$bookings->weight}}</td>
                             <td>{{$bookings->unit}}</td>
-                            <td>{{$bookings->package_type}}</td>
                             <td>{{$bookings->length}}</td>
                             <td>{{$bookings->width}}</td>
                             <td>{{$bookings->height}}</td>
-                            <td>£{{$bookings->size_unit}}</td>
+                            <td>{{$bookings->size_unit}}</td>
+                            <td>£{{$bookings->price}}</td>
+                            <td>{{$bookings->coll_name}}</td>
+                            <td>{{$bookings->coll_phone}}</td>
+                            <td>{{$bookings->deli_name}}</td>
+                            <td>{{$bookings->deli_phone}}</td>
                             @php 
                               $booking = DB::table('user_extra_addresses')
                                       ->where('booking_id', $bookings->id)

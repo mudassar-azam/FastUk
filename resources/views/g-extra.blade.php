@@ -188,168 +188,168 @@
     </section>
 
 
-    <section class="content gradient">
-        <div class="container mx-auto px-4">
-            <div class="table-header-id" style="display: flex;">
-                <h2 style="flex: 1; font-weight: bold; font-size:32px;">Your Booking</h2>
+    <div style="min-height: 60vh;">
+        <section class="content gradient" style="max-width: 100vw;overflow-x: auto;">
+            <div class="container mx-auto px-4">
+                <div class="table-header-id" style="display: flex;">
+                    <h2 style="flex: 1; font-weight: bold; font-size:32px;">Your Booking</h2>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="text-wrap: nowrap;">Reference ID</th>
+                                <th style="text-wrap: nowrap;">Collection Point</th>
+                                <th style="text-wrap: nowrap;">Delivery Point</th>
+                                <th style="text-wrap: nowrap;">Package Type</th>
+                                <th style="text-wrap: nowrap;">Quantity</th>
+                                <th style="text-wrap: nowrap;">Weight</th>
+                                <th style="text-wrap: nowrap;">Unit</th>
+                                <th style="text-wrap: nowrap;">Length</th>
+                                <th style="text-wrap: nowrap;">Width</th>
+                                <th style="text-wrap: nowrap;">Height</th>
+                                <th style="text-wrap: nowrap;">Size Unit</th>
+                                <th style="text-wrap: nowrap;">PickUp Date</th>
+                                <th style="text-wrap: nowrap;">PickUp Time Type</th>
+                                <th style="text-wrap: nowrap;">Distance</th>
+                                <th style="text-wrap: nowrap;">Price</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="success">
+                                <td>{{$booking->ref_no}}</td>
+                                <td>{{$booking->from_address ?? '-'}}</td>
+                                <td>{{$booking->to_address ?? '-'}}</td>
+                                <td>{{$booking->package_type}}</td>
+                                <td>{{$booking->quantity}}</td>
+                                <td>{{$booking->weight}}</td>
+                                <td>{{$booking->unit}}</td>
+                                <td>{{$booking->length}}</td>
+                                <td>{{$booking->width}}</td>
+                                <td>{{$booking->height}}</td>
+                                <td>{{$booking->size_unit}}</td>
+                                <td>{{$booking->booking_date}}</td>
+                                <td>{{$booking->pickup_time_type}}</td>
+                                <td>{{$booking->distance}}</td>
+                                <td>{{$booking->price}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
+        </section>
+        @if($cbooking->isNotEmpty())
+        <section class="content gradient" style="max-width: 100vw;overflow-x: auto;">
+            <div class="container mx-auto px-4">
+                <div class="table-header-id" style="display: flex;">
+                    <h2 style="flex: 1; font-weight: bold; font-size:32px;">Additinal Collection Points</h2>
+                </div>
 
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Collection Point</th>
-                            <th>Delivery Point</th>
-                            <th>Package Type</th>
-                            <th>Quantity</th>
-                            <th>Weight</th>
-                            <th>Unit</th>
-                            <th>Length</th>
-                            <th>Width</th>
-                            <th>Height</th>
-                            <th>Size Unit</th>
-                            <th>PickUp Date</th>
-                            <th>PickUp Time Type</th>
-                            <th>Distance</th>
-                            <th>Price</th>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="text-wrap: nowrap;">Reference ID</th>
+                                <th style="text-wrap: nowrap;">Linked To</th>
+                                <th style="text-wrap: nowrap;">Collection Point</th>
+                                <th style="text-wrap: nowrap;">Package Type</th>
+                                <th style="text-wrap: nowrap;">Quantity</th>
+                                <th style="text-wrap: nowrap;">Weight</th>
+                                <th style="text-wrap: nowrap;">Unit</th>
+                                <th style="text-wrap: nowrap;">Length</th>
+                                <th style="text-wrap: nowrap;">Width</th>
+                                <th style="text-wrap: nowrap;">Height</th>
+                                <th style="text-wrap: nowrap;">Size Unit</th>
+                                <th style="text-wrap: nowrap;">Company Name</th>
+                                <th style="text-wrap: nowrap;">Contact Number</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="success">
-                            <td>{{$booking->from_address ?? '-'}}</td>
-                            <td>{{$booking->to_address ?? '-'}}</td>
-                            <td>{{$booking->package_type}}</td>
-                            <td>{{$booking->quantity}}</td>
-                            <td>{{$booking->weight}}</td>
-                            <td>{{$booking->unit}}</td>
-                            <td>{{$booking->length}}</td>
-                            <td>{{$booking->width}}</td>
-                            <td>{{$booking->height}}</td>
-                            <td>{{$booking->size_unit}}</td>
-                            <td>{{$booking->booking_date}}</td>
-                            <td>{{$booking->pickup_time_type}}</td>
-                            <td>{{$booking->distance}}</td>
-                            <td>{{$booking->price}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach($cbooking as $bookings)
+                            <tr class="success">
+                                <td>{{$bookings->ref_no}}</td>
+                                <td>{{$bookings->linked_to}}</td>
+                                <td>{{$bookings->collection_point ?? '-'}}</td>
+                                <td>{{$bookings->package_type}}</td>
+                                <td>{{$bookings->quantity}}</td>
+                                <td>{{$bookings->weight}}</td>
+                                <td>{{$bookings->unit}}</td>
+                                <td>{{$bookings->length}}</td>
+                                <td>{{$bookings->width}}</td>
+                                <td>{{$bookings->height}}</td>
+                                <td>{{$bookings->size_unit}}</td>
+                                <td>{{$bookings->company_name}}</td>
+                                <td>{{$bookings->contact_tele}}</td>
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
+        </section>
+        @endif
+        @if($dbooking->isNotEmpty())
+        <section class="content gradient" style="max-width: 100vw;overflow-x: auto;">
+            <div class="container mx-auto px-4">
+                <div class="table-header-id" style="display: flex;">
+                    <h2 style="flex: 1; font-weight: bold; font-size:32px;">Additinal Delivery Points</h2>
+                </div>
 
-        </div>
-    </section>
-    @if($cbooking->isNotEmpty())
-    <section class="content gradient">
-        <div class="container mx-auto px-4">
-            <div class="table-header-id" style="display: flex;">
-                <h2 style="flex: 1; font-weight: bold; font-size:32px;">Additinal Collection Points</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="text-wrap: nowrap;">Reference ID</th>
+                                <th style="text-wrap: nowrap;">Linked To</th>
+                                <th style="text-wrap: nowrap;">Delivery Point</th>
+                                <th style="text-wrap: nowrap;">Package Type</th>
+                                <th style="text-wrap: nowrap;">Quantity</th>
+                                <th style="text-wrap: nowrap;">Weight</th>
+                                <th style="text-wrap: nowrap;">Unit</th>
+                                <th style="text-wrap: nowrap;">Length</th>
+                                <th style="text-wrap: nowrap;">Width</th>
+                                <th style="text-wrap: nowrap;">Height</th>
+                                <th style="text-wrap: nowrap;">Size Unit</th>
+                                <th style="text-wrap: nowrap;">Company Name</th>
+                                <th style="text-wrap: nowrap;">Contact Number</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach($dbooking as $bookings)
+                            <tr class="success">
+                                <td>{{$bookings->ref_no}}</td>
+                                <td>{{$bookings->linked_to}}</td>
+                                <td>{{$bookings->delivery_point ?? '-'}}</td>
+                                <td>{{$bookings->package_type}}</td>
+                                <td>{{$bookings->quantity}}</td>
+                                <td>{{$bookings->weight}}</td>
+                                <td>{{$bookings->unit}}</td>
+                                <td>{{$bookings->length}}</td>
+                                <td>{{$bookings->width}}</td>
+                                <td>{{$bookings->height}}</td>
+                                <td>{{$bookings->size_unit}}</td>
+                                <td>{{$bookings->company_name}}</td>
+                                <td>{{$bookings->contact_tele}}</td>
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
-
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Linked To</th>
-                            <th>Collection Point</th>
-                            <th>Package Type</th>
-                            <th>Quantity</th>
-                            <th>Weight</th>
-                            <th>Unit</th>
-                            <th>Length</th>
-                            <th>Width</th>
-                            <th>Height</th>
-                            <th>Size Unit</th>
-                            <th>Company Name</th>
-                            <th>Contact Name</th>
-                            <th>Contact Number</th>
-                            <th>Postal Code</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach($cbooking as $bookings)
-                        <tr class="success">
-                            <td>{{$bookings->linked_to}}</td>
-                            <td>{{$bookings->collection_point ?? '-'}}</td>
-                            <td>{{$bookings->package_type}}</td>
-                            <td>{{$bookings->quantity}}</td>
-                            <td>{{$bookings->weight}}</td>
-                            <td>{{$bookings->unit}}</td>
-                            <td>{{$bookings->length}}</td>
-                            <td>{{$bookings->width}}</td>
-                            <td>{{$bookings->height}}</td>
-                            <td>{{$bookings->size_unit}}</td>
-                            <td>{{$bookings->company_name}}</td>
-                            <td>{{$bookings->contact_name}}</td>
-                            <td>{{$bookings->contact_tele}}</td>
-                            <td>{{$bookings->postal_code}}</td>
-                        </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-    </section>
-    @endif
-    @if($dbooking->isNotEmpty())
-    <section class="content gradient">
-        <div class="container mx-auto px-4">
-            <div class="table-header-id" style="display: flex;">
-                <h2 style="flex: 1; font-weight: bold; font-size:32px;">Additinal Delivery Points</h2>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Linked To</th>
-                            <th>Delivery Point</th>
-                            <th>Package Type</th>
-                            <th>Quantity</th>
-                            <th>Weight</th>
-                            <th>Unit</th>
-                            <th>Length</th>
-                            <th>Width</th>
-                            <th>Height</th>
-                            <th>Size Unit</th>
-                            <th>Company Name</th>
-                            <th>Contact Name</th>
-                            <th>Contact Number</th>
-                            <th>Postal Code</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach($dbooking as $bookings)
-                        <tr class="success">
-                            <td>{{$bookings->linked_to}}</td>
-                            <td>{{$bookings->delivery_point ?? '-'}}</td>
-                            <td>{{$bookings->package_type}}</td>
-                            <td>{{$bookings->quantity}}</td>
-                            <td>{{$bookings->weight}}</td>
-                            <td>{{$bookings->unit}}</td>
-                            <td>{{$bookings->length}}</td>
-                            <td>{{$bookings->width}}</td>
-                            <td>{{$bookings->height}}</td>
-                            <td>{{$bookings->size_unit}}</td>
-                            <td>{{$bookings->company_name}}</td>
-                            <td>{{$bookings->contact_name}}</td>
-                            <td>{{$bookings->contact_tele}}</td>
-                            <td>{{$bookings->postal_code}}</td>
-                        </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-    </section>
-    @endif
+        </section>
+        @endif
+    </div>
 
     <!-- Footer Section -->
     <footer>

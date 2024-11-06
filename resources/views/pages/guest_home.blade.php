@@ -177,7 +177,8 @@
     <section class="flex md:hidden justify-between p-6 items-center">
         <div class="flex justify-center">
             <a href="/" class="custom-logo-link" rel="home"><img width="244" height="48"
-                    src="{{ url('images/fast_uk_couriers.png') }}" class="custom-logo" alt="We Are Same Day Logo"></a>
+                    src="{{ url('images/fast_uk_couriers.png') }}" class="custom-logo"
+                    alt="We Are Same Day Logo"></a>
         </div>
         <div class="flex">
             <a href="mailto:info@fastukcouriers.co.uk" class="ml-4 mr-2"><img
@@ -188,7 +189,7 @@
     </section>
 
 
-    <section class="content gradient">
+    <section style="min-height: 60vh;max-width: 100vw;overflow-x: auto;" class="content gradient">
         <div class="container mx-auto px-4">
             <div class="table-header-id" style="display: flex;">
                 <h2 style="flex: 1; font-weight: bold; font-size:32px;">Your Booking</h2>
@@ -203,34 +204,31 @@
                 <table id="bookingTable" class="table table-striped table-bordered" style="width: 100%;">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Book ID</th>
-                            <th>Departure Name</th>
-                            <th>Destination Name</th>
-                            <th>Driver Name</th>
-                            <th>Booking Date</th>
-                            <th>Picking time type</th>
-                            <th>Package Type</th>
-                            <th>Quantity</th>
-                            <th>Weight</th>
-                            <th>Unit</th>
-                            <th>collection name</th>
-                            <th>collection phone</th>
-                            <th>collection Postal Code</th>
-                            <th>collection city</th>
-                            <th>Delivery name</th>
-                            <th>Delivery phone</th>
-                            <th>Delivery Postal Code</th>
-                            <th>Delivery city</th>
-                            <th>Estimate Price</th>
-                            <th>status</th>
-                            <th>Extra Addresses</th>
+                            <th style="text-wrap: nowrap;">Reference ID</th>
+                            <th style="text-wrap: nowrap;">Departure Name</th>
+                            <th style="text-wrap: nowrap;">Destination Name</th>
+                            <th style="text-wrap: nowrap;">Driver Name</th>
+                            <th style="text-wrap: nowrap;">Booking Date</th>
+                            <th style="text-wrap: nowrap;">Picking time type</th>
+                            <th style="text-wrap: nowrap;">Package Type</th>
+                            <th style="text-wrap: nowrap;">Quantity</th>
+                            <th style="text-wrap: nowrap;">Weight</th>
+                            <th style="text-wrap: nowrap;">Unit</th>
+                            <th style="text-wrap: nowrap;">collection name</th>
+                            <th style="text-wrap: nowrap;">collection phone</th>
+                            <th style="text-wrap: nowrap;">Delivery name</th>
+                            <th style="text-wrap: nowrap;">Delivery phone</th>
+                            <th style="text-wrap: nowrap;">Estimate Price</th>
+                            <th style="text-wrap: nowrap;">status</th>
+                            <th style="text-wrap: nowrap;">Extra Addresses</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($booking as $bookings)
-                        <tr class="{{ $bookings->status == 'success' ? 'table-success' : ($bookings->status == 'failed' ? 'table-danger' : '') }}">
-                            <td>{{$bookings->id}}</td>
+                        <tr
+                            class="{{ $bookings->status == 'success' ? 'table-success' : ($bookings->status == 'failed' ? 'table-danger' : '') }}">
+                            <td>{{$bookings->ref_no}}</td>
                             <td>{{$bookings->from_address}}</td>
                             <td>{{$bookings->to_address}}</td>
                             <td>{{$bookings->vehicle_id}}</td>
@@ -255,12 +253,8 @@
                             <td>{{$bookings->unit}}</td>
                             <td>{{$bookings->coll_name}}</td>
                             <td>{{$bookings->coll_phone}}</td>
-                            <td>{{$bookings->coll_postal_code}}</td>
-                            <td>{{$bookings->coll_city ?? 'N/A'}}</td>
                             <td>{{$bookings->deli_name}}</td>
                             <td>{{$bookings->deli_phone}}</td>
-                            <td>{{$bookings->deli_postal_code}}</td>
-                            <td>{{$bookings->deli_city ?? 'N/A'}}</td>
                             <td>{{$bookings->price}}</td>
                             <td>{{$bookings->status}}</td>
                             @php
@@ -290,7 +284,7 @@
     <!-- Footer Section -->
     <footer>
 
-        <section class="dark-box" style="position: absolute;bottom: 0;width: 100%;margin-bottom: 0em;">
+        <section class="dark-box" style="width: 100%;margin-bottom: 0em;">
             <div class="container pt-6 md:pt-0 mx-auto md:flex justify-between items-center">
                 <div class="md:w-1/2 text-base text-light text-white text-center md:text-left">Copyright © 2024 Fastuk.
                     All rights reserved. | <a href="https://wearesameday.com/privacy-policy/">Privacy Policy</a> | <a
@@ -301,13 +295,6 @@
             </div>
         </section>
     </footer>
-
-    <!-- Scripts -->
-    <script>
-    $(document).ready(function() {
-        $('#bookingTable').DataTable();
-    });
-    </script>
 
 </body>
 

@@ -15,7 +15,8 @@ Route::get('/1', function () {
 
 
 Route::get('/', function () {
-    return view('landing');
+    $ref_no = strtoupper(substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 6));
+    return view('landing', compact('ref_no'));
 });
 
 

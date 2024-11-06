@@ -114,18 +114,10 @@ class StripeController extends Controller
 
             $booking->coll_phone =$data['ph1'];
 
-            $booking->coll_ppostal_code = $data['pc1'] ?? null; 
-
-            $booking->coll_city= $data['name1'] ?? null;
-
 
             $booking->deli_name = $data['company_name2'] ?? null;
 
             $booking->deli_phone = $data['ph2'] ?? null;
-
-            $booking->deli_postal_code = $data['pc2'] ?? null;
-
-            $booking->deli_city= $data['name2'] ?? null;
 
             $booking->length= $data['length'];
 
@@ -140,7 +132,7 @@ class StripeController extends Controller
             $booking->distance = $distance;
 
             $booking->price= $data['ffinal'];
-
+            $booking->ref_no = $data['ref_no'];
 
 
             $booking->save();
@@ -151,6 +143,7 @@ class StripeController extends Controller
                 foreach ($dynamicData as $data) {
                     $extraAddress = new GuestExtraAddresses();
                     $extraAddress->linked_to = $data['linked_to'];
+                    $extraAddress->ref_no = $data['auto_generated_id'];
                     $extraAddress->address_type = $data['address_type'];
                     $extraAddress->package_type = $data['package_type'];
                     $extraAddress->quantity = $data['quantity'];
@@ -164,9 +157,7 @@ class StripeController extends Controller
                     $extraAddress->delivery_point = $data['delivery_point'];
                     $extraAddress->additional_notes = $data['additional_notes'];
                     $extraAddress->company_name = $data['company_name'];
-                    $extraAddress->contact_name = $data['contact_name'];
                     $extraAddress->contact_tele = $data['contact_tele'];
-                    $extraAddress->postal_code = $data['postal_code'];
                     $extraAddress->booking_id = $booking->id; 
                     $extraAddress->save();
                 }
@@ -181,15 +172,15 @@ class StripeController extends Controller
 
                  $data = array('data'=>$booking,'user'=>$guest);
 
-                Mail::send('invoice', $data, function($message) use ($request,$guest) {
+                // Mail::send('invoice', $data, function($message) use ($request,$guest) {
 
-                    $message->to($guest->email,$guest->name)->subject
+                //     $message->to($guest->email,$guest->name)->subject
 
-                    ('Fast Uk Booking Confirm...');
+                //     ('Fast Uk Booking Confirm...');
 
-                    $message->from('fastuk@gmail.com','Fast Uk');
+                //     $message->from('fastuk@gmail.com','Fast Uk');
 
-                });
+                // });
 
                 
 
@@ -249,18 +240,10 @@ class StripeController extends Controller
 
             $booking->coll_phone =$data['ph1'];
 
-            $booking->coll_ppostal_code = $data['pc1'] ?? null; 
-
-            $booking->coll_city= $data['name1'] ?? null;
-
 
             $booking->deli_name = $data['company_name2'] ?? null;
 
             $booking->deli_phone = $data['ph2'] ?? null;
-
-            $booking->deli_postal_code = $data['pc2'] ?? null;
-
-            $booking->deli_city= $data['name2'] ?? null;
 
             $booking->length= $data['length'];
 
@@ -276,7 +259,7 @@ class StripeController extends Controller
 
             $booking->price= $data['ffinal'];
 
-
+            $booking->ref_no = $data['ref_no'];
 
             $booking->save();
 
@@ -296,15 +279,15 @@ class StripeController extends Controller
 
                  $data = array('data'=>$booking,'user'=>$user);
 
-                Mail::send('invoice', $data, function($message) use ($request,$user) {
+                // Mail::send('invoice', $data, function($message) use ($request,$user) {
 
-                    $message->to($user->email,$user->name)->subject
+                //     $message->to($user->email,$user->name)->subject
 
-                    ('Fast Uk Booking Confirm...');
+                //     ('Fast Uk Booking Confirm...');
 
-                    $message->from('fastuk@gmail.com','Fast Uk');
+                //     $message->from('fastuk@gmail.com','Fast Uk');
 
-                });
+                // });
                 Session::flash ( 'success-message', 'Payment done successfully !' );
 
             return Redirect::back ();

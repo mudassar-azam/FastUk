@@ -29,13 +29,10 @@ class Sesion extends Model
         'vehicle',
         'company_name1',
         'company_name2',
-        'postal_code1',
-        'postal_code2',
         'ph1',
         'ph2',
-        'name1',
-        'name2',
         'distance',
+        'ref_no',
         'ffinal',
     ];
 }

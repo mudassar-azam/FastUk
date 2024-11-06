@@ -138,12 +138,12 @@ $data = DB::table('homepages')->first();
                             <br>
                             <!--input row -->
                             <div class="input-row">
-                                <label class="fieldlabels">Collection Point: *
+                                <label class="fieldlabels">Collection Stop: *
                                     <input type="text" id="locationTextField" name='from'
-                                        placeholder="Collection Point" />
+                                        placeholder="Collection Stop" />
                                 </label>
-                                <label class="fieldlabels">Delivery Point: *
-                                    <input type="text" id="locationTextField2" name='to' placeholder="Delivery Point" />
+                                <label class="fieldlabels">Delivery Stop: *
+                                    <input type="text" id="locationTextField2" name='to' placeholder="Delivery Stop" />
                                 </label>
                                 <label class="fieldlabels">Date: *
                                     <input type="date" name="b_date" id="b_date" placeholder="choose date" />
@@ -276,8 +276,8 @@ $data = DB::table('homepages')->first();
                                         <option selected disabled>select package type</option>
                                         <option value="bags">Bags</option>
                                         <option value="packages">Packages</option>
-                                        <option value="palletsEuro">Pallets Euro</option>
-                                        <option value="palletsUk">Pallets Uk</option>
+                                        <option value="palletsEuro">Euro Pallet</option>
+                                        <option value="palletsUk">select package type</option>
                                     </select>
                                 </label>
 
@@ -286,11 +286,11 @@ $data = DB::table('homepages')->first();
                                 </label>
 
                                 <label class="fieldlabels">Weight: *
-                                    <input type="text" name="weight" id="weight" placeholder="Weight" />
+                                    <input type="number" name="weight" id="weight" placeholder="Weight" />
                                 </label>
 
                                 <label class="fieldlabels">Unit: *
-                                    <br><select name="unit" id="unit"
+                                    <br><select name="unit" id="unit" class="unit-dropdown"
                                         style="width: 95%;border: 1px solid #ccc;color: black;border-radius: 6px;height: 60%;">
                                         <option selected disabled>select unit</option>
                                         <option value="kg">Kg</option>
@@ -303,15 +303,15 @@ $data = DB::table('homepages')->first();
 
                             <div class="input-row" style="margin-top: none;">
                                 <label class="fieldlabels">Length: *
-                                    <input type="text" name="length" id="length" placeholder="Length">
+                                    <input type="number" name="length" id="length" placeholder="Length">
                                 </label>
 
                                 <label class="fieldlabels">Width: *
-                                    <input type="text" name="width" id="width" placeholder="Width">
+                                    <input type="number" name="width" id="width" placeholder="Width">
                                 </label>
 
                                 <label class="fieldlabels">Height: *
-                                    <input type="text" name="height" id="height" placeholder="Height" />
+                                    <input type="number" name="height" id="height" placeholder="Height" />
                                 </label>
 
                                 <label class="fieldlabels">Size Unit: *
@@ -335,11 +335,7 @@ $data = DB::table('homepages')->first();
                                     <div class="d-lg-flex d-xl-flex d-block">
                                         <input type="text" name="company_name1" id="comName1"
                                             placeholder="Contact Name: *" class="w-100" style="width: 49%;">
-                                        <input type="text" name="contact_name1" id="name1" placeholder="Contact City"
-                                            class="w-100" style="width: 49%;">
-                                        <input type="text" name="contact_tele1" id="ph1" placeholder="Contact Telephone"
-                                            class="w-100" style="width: 49%;">
-                                        <input type="text" name="postal_code1" id="pc1" placeholder="Postal Code: *"
+                                        <input type="number" name="contact_tele1" id="ph1" placeholder="Contact Telephone"
                                             class="w-100" style="width: 49%;">
                                     </div>
 
@@ -349,12 +345,9 @@ $data = DB::table('homepages')->first();
                                     <div class="d-lg-flex d-xl-flex d-block">
                                         <input type="text" name="company_name2" id="comName2"
                                             placeholder="Contact Name: *" class="w-100" style="width: 49%;">
-                                        <input type="text" name="contact_name2" id="name2" placeholder="Contact City"
-                                            class="w-100" style="width: 49%;">
-                                        <input type="text" name="contact_tele2" id="ph2" placeholder="Contact Telephone"
-                                            class="w-100" style="width: 49%;">
-                                        <input type="text" name="postal_code2" id="pc2" placeholder="Postal Code: *"
-                                            class="w-100" style="width: 49%;">
+                                        <input type="number" name="contact_tele2" id="ph2" placeholder="Contact Telephone"
+                                            class="w-100" style="width: 49%;">  
+                                        <input type="text" name="ref_no" id="ref_no" class="w-100" value="{{$ref_no}}" style="width: 98%;color:black;" readonly>
                                     </div>
 
                                 </div>
@@ -427,57 +420,56 @@ $data = DB::table('homepages')->first();
 
                                 @endphp
                                 @foreach ($vehicle as $vehicles)
-                                <div class="col-3 chosevehicle">
-                                    <label for="{{$vehicles->id}}" style="cursor:pointer;text-align:center;">
-                                        @php
+                                    <div class="col-3 chosevehicle" data-vehicle-weight="{{$vehicles->wieght}}">
+                                        <label for="{{$vehicles->id}}" style="cursor:pointer;text-align:center;">
+                                            @php
 
-                                        $imv =
-                                        \DB::table('tj_type_vehicule_rental')->where('id',$vehicles->id_type_vehicule)->first();
-                                        $miles = $imv->miles;
-                                        $limit_prix = $imv->prix;
-                                        @endphp
-                                        <img src="{{asset('admin/assets/images/type_vehicle_rental/')}}/{{$imv->image}}"
-                                            style="width:170px;">
+                                            $imv =
+                                            \DB::table('tj_type_vehicule_rental')->where('id',$vehicles->id_type_vehicule)->first();
+                                            $miles = $imv->miles;
+                                            $limit_prix = $imv->prix;
+                                            @endphp
+                                            <img src="{{asset('admin/assets/images/type_vehicle_rental/')}}/{{$imv->image}}"
+                                                style="width:170px;">
 
-                                        <label class="container-form-radio">
-                                            <!--<input type="radio" checked="checked" name="radio">-->
-                                            <input class="select_van" data-price="{{$vehicles->price}}" type='radio'
-                                                name='chosevehicle' id="{{$vehicles->id}}" />
-                                            <span class="checkmark"></span>
+                                            <label class="container-form-radio">
+                                                <input class="select_van" data-price="{{$vehicles->price}}" type='radio'
+                                                    name='chosevehicle' id="{{$vehicles->id}}" />
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <br>
+                                            <div
+                                                style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:5px 10px">
+                                                <span>Carry Weight</span>
+                                                <span style="color:#aa1818;font-weight:bold;">{{$vehicles->wieght}}</span>
+                                            </div>
+                                            <div
+                                                style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:5px 10px">
+                                                <span>Vehicle</span>
+                                                <span style="color:#aa1818;font-weight:bold;">{{$vehicles->brand}}</span>
+                                            </div>
+                                            <div
+                                                style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:5px 10px">
+                                                <span>Distance</span>
+                                                <span style="color:#aa1818;font-weight:bold;"><span
+                                                        class="distance_place">calcul..</span>miles</span>
+                                            </div>
+                                            <div
+                                                style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:5px 10px">
+                                                <span>Extra Point (25£ per point) :</span>
+                                                <span style="color:#aa1818;font-weight:bold;"><span
+                                                        class="extra_points"></span></span>
+                                            </div>
+                                            <div
+                                                style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:5px 10px">
+                                                <span>Est Price (incl EPs & vat 20%)</span>
+                                                <span style="color:#aa1818;font-weight:bold;">&#163; <span class="est_cost"
+                                                        data-finaltotal="0" data-price="{{$vehicles->price}}"
+                                                        data-miles="{{$miles}}"
+                                                        data-limprice="{{$limit_prix}}">calcul..</span></span>
+                                            </div>
                                         </label>
-                                        <br>
-                                        <div
-                                            style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:5px 10px">
-                                            <span>Carry Weight</span>
-                                            <span style="color:#aa1818;font-weight:bold;">{{$vehicles->wieght}}</span>
-                                        </div>
-                                        <div
-                                            style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:5px 10px">
-                                            <span>Vehicle</span>
-                                            <span style="color:#aa1818;font-weight:bold;">{{$vehicles->brand}}</span>
-                                        </div>
-                                        <div
-                                            style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:5px 10px">
-                                            <span>Distance</span>
-                                            <span style="color:#aa1818;font-weight:bold;"><span
-                                                    class="distance_place">calcul..</span>miles</span>
-                                        </div>
-                                        <div
-                                            style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:5px 10px">
-                                            <span>Extra Point (25£ per point) :</span>
-                                            <span style="color:#aa1818;font-weight:bold;"><span
-                                                    class="extra_points"></span></span>
-                                        </div>
-                                        <div
-                                            style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:5px 10px">
-                                            <span>Est Price (incl EPs & vat 20%)</span>
-                                            <span style="color:#aa1818;font-weight:bold;">&#163; <span class="est_cost"
-                                                    data-finaltotal="0" data-price="{{$vehicles->price}}"
-                                                    data-miles="{{$miles}}"
-                                                    data-limprice="{{$limit_prix}}">calcul..</span></span>
-                                        </div>
-                                    </label>
-                                </div>
+                                    </div>
                                 @endforeach
 
                                 <input type="hidden" value="" id="distance" name="distance">
@@ -512,9 +504,7 @@ $data = DB::table('homepages')->first();
                                         <p class="ffinal"></p>
                                         <label><b>Collection Address Details</b></label>
                                         <p class="company_name1"></p>
-                                        <p class="postal_code1"></p>
                                         <p class="ph1"></p>
-                                        <p class="name1"></p>
                                         <label><b>Size Unit</b></label>
                                         <p class="size_unit"></p>
                                         <label><b>Length</b></label>
@@ -535,9 +525,7 @@ $data = DB::table('homepages')->first();
                                         <p class="unit"></p>
                                         <label><b>Delivery Address Details</b></label>
                                         <p class="company_name2"></p>
-                                        <p class="postal_code2"></p>
                                         <p class="ph2"></p>
-                                        <p class="name2"></p>
                                         <label><b>Dimensions</b></label>
                                         <label><b>Height</b></label>
                                         <p class="height"></p>
@@ -1257,14 +1245,11 @@ function getformvalues() {
     var vehicle = $('input:radio:checked').attr('id');
     var company_name1 = $('#comName1').val();
     var company_name2 = $('#comName2').val();
-    var postal_code1 = $('#pc1').val();
-    var postal_code2 = $('#pc2').val();
     var ph1 = $('#ph1').val();
     var ph2 = $('#ph2').val();
-    var name1 = $('#name1').val();
-    var name2 = $('#name2').val();
     var distance = $('#distance').val();
     var ffinal = $('#final_price').val();
+    var ref_no = $('#ref_no').val();
 
 
     $.ajax({
@@ -1287,18 +1272,15 @@ function getformvalues() {
             unit: unit,
             vehicle: vehicle,
             company_name1: company_name1,
-            postal_code1: postal_code1,
             ph1: ph1,
-            name1: name1,
             company_name2: company_name2,
-            postal_code2: postal_code2,
             ph2: ph2,
-            name2: name2,
             ffinal: ffinal,
             length: length,
             width: width,
             height: height,
-            size_unit: size_unit
+            size_unit: size_unit,
+            ref_no:ref_no
         },
         success: function(response) {
             if (response.session) {
@@ -1314,9 +1296,7 @@ function getformvalues() {
                 $('.ffinal').text(response.session.ffinal);
                 // Collection Address Details
                 $('.company_name1').text(response.session.company_name1);
-                $('.postal_code1').text(response.session.postal_code1);
                 $('.ph1').text(response.session.ph1);
-                $('.name1').text(response.session.name1);
 
                 // Delivery Point
                 $('.to').text(response.session.to);
@@ -1330,9 +1310,7 @@ function getformvalues() {
                 $('.unit').text(response.session.unit);
                 // Delivery Address Details
                 $('.company_name2').text(response.session.company_name2);
-                $('.postal_code2').text(response.session.postal_code2);
                 $('.ph2').text(response.session.ph2);
-                $('.name2').text(response.session.name2);
 
                 // Dimensions
                 $('.height').text(response.session.height);
@@ -1394,6 +1372,7 @@ function collectDynamicFieldsetData() {
         data['quantity'] = fieldset.querySelector(`input[name="quantity_${index + 1}"]`).value;
         data['weight'] = fieldset.querySelector(`input[name="weight_${index + 1}"]`).value;
         data['linked_to'] = fieldset.querySelector(`input[name="linked_to_${index + 1}"]`).value;
+        data['auto_generated_id'] = fieldset.querySelector(`input[name="auto_generated_id_${index + 1}"]`).value;
         data['unit'] = fieldset.querySelector(`select[name="unit_${index + 1}"]`).value;
         data['length'] = fieldset.querySelector(`input[name="length_${index + 1}"]`).value;
         data['width'] = fieldset.querySelector(`input[name="width_${index + 1}"]`).value;
@@ -1403,9 +1382,7 @@ function collectDynamicFieldsetData() {
         data['delivery_point'] = fieldset.querySelector(`input[name="to_${index + 1}"]`)?.value || '';
         data['additional_notes'] = fieldset.querySelector(`textarea[name="additional_notes_${index + 1}"]`).value;
         data['company_name'] = fieldset.querySelector(`input[name="company_name1_${index + 1}"]`).value;
-        data['contact_name'] = fieldset.querySelector(`input[name="contact_name1_${index + 1}"]`).value;
         data['contact_tele'] = fieldset.querySelector(`input[name="contact_tele1_${index + 1}"]`).value;
-        data['postal_code'] = fieldset.querySelector(`input[name="postal_code1_${index + 1}"]`).value;
 
         dynamicData.push(data);
 
@@ -1416,6 +1393,9 @@ function collectDynamicFieldsetData() {
                 <span style="font-weight:bold;font-size:20px">Addition Address # ${index + 1}</span>
             </div>
             <div style="display:flex;align-items:center;justify-content:center">
+                <span style="font-weight:bold;font-size:20px">Reference Id # ${data['auto_generated_id']}</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center">
                 <span style="font-weight:bold;font-size:20px">Linked To : ${data['linked_to']}</span>
             </div>
             <p><strong>Address Type:</strong> ${data['address_type']}</p>
@@ -1424,9 +1404,7 @@ function collectDynamicFieldsetData() {
             <p><strong>Weight:</strong> ${data['weight']} ${data['unit']}</p>
             <p><strong>Dimensions:</strong> ${data['length']} x ${data['width']} x ${data['height']} ${data['size_unit']}</p>
             <p><strong>Company Name:</strong> ${data['company_name']}</p>
-            <p><strong>Contact Name:</strong> ${data['contact_name']}</p>
             <p><strong>Contact Telephone:</strong> ${data['contact_tele']}</p>
-            <p><strong>Postal Code:</strong> ${data['postal_code']}</p>
             <p><strong>Additional Notes:</strong> ${data['additional_notes']}</p>
         `;
 
@@ -1539,6 +1517,43 @@ $(document).ready(function() {
                     swal("Past Date Not Allowed..!", "", "error");
                 } else {
                     $('.distance_place').html('calc..');
+
+                    const unitDropdowns = document.querySelectorAll('.unit-dropdown');
+                    const weightFields = document.querySelectorAll('input[name^="weight"]');
+
+                    let totalWeightInPounds = 0;
+
+                    const conversionFactors = {
+                        kg: 2.20462, 
+                        gram: 0.00220462, 
+                        ton: 2204.62,  
+                        pound: 1
+                    };
+
+
+                    unitDropdowns.forEach((dropdown, index) => {
+                        const weightField = weightFields[index];
+                        const unit = dropdown.value;
+                        const weightValue = parseFloat(weightField.value) || 0;
+
+                        const weightInPounds = weightValue * (conversionFactors[unit] || 1);
+
+                        totalWeightInPounds += weightInPounds;
+                    });
+
+                    document.querySelectorAll('.chosevehicle').forEach(vehicleDiv => {
+                        const vehicleWeight = parseFloat(vehicleDiv.getAttribute('data-vehicle-weight')) || 0;
+                        const radioButton = vehicleDiv.querySelector('.select_van');
+
+                        if (vehicleWeight < totalWeightInPounds) {
+                            radioButton.disabled = true;
+                            radioButton.checked = false;
+                        } else {
+                            radioButton.disabled = false;
+                        }
+                    });
+
+
 
                     const staticFrom = document.querySelector('#locationTextField').value;
                     const staticTo = document.querySelector('#locationTextField2').value;
@@ -2128,6 +2143,8 @@ $("#checkguest").click(function() {
 
         fieldsetCount++;
 
+        const randomId = Math.floor(Math.random() * 900000) + 100000;
+
         const wrapperDiv = document.createElement('div');
         wrapperDiv.classList.add('fieldset-wrapper');
         wrapperDiv.style.marginBottom = '20px';
@@ -2149,11 +2166,11 @@ $("#checkguest").click(function() {
                         </select>
                     </label>
                     <div id="dynamicAddressInput_${fieldsetCount}" style="width: 100%;">
-                        <label class="fieldlabels">Collection Point: *
-                            <input type="text" id="collection_point_${fieldsetCount}" name="from_${fieldsetCount}" placeholder="Collection Point" />
+                        <label class="fieldlabels">Collection Stop: *
+                            <input type="text" id="collection_point_${fieldsetCount}" name="from_${fieldsetCount}" placeholder="Collection Stop" />
                         </label>
                     </div>
-                    <label class="fieldlabels">Linked To: *
+                    <label class="fieldlabels">Linked Reference Id: *
                         <input type="text" name="linked_to_${fieldsetCount}" placeholder="Link" />
                     </label>
                 </div>
@@ -2164,19 +2181,19 @@ $("#checkguest").click(function() {
                             <option selected disabled>select package type</option>
                             <option value="bags">Bags</option>
                             <option value="packages">Packages</option>
-                            <option value="palletsEuro">Pallets Euro</option>
-                            <option value="palletsUk">Pallets Uk</option>
+                            <option value="palletsEuro">Euro Pallet</option>
+                            <option value="palletsUk">Uk Standared Pallet</option>
                         </select>
                     </label>
                     <label class="fieldlabels">Quantity: *
                         <input type="number" name="quantity_${fieldsetCount}" placeholder="Quantity" />
                     </label>
                     <label class="fieldlabels">Weight: *
-                        <input type="text" name="weight_${fieldsetCount}" placeholder="Weight" />
+                        <input type="number" name="weight_${fieldsetCount}" placeholder="Weight" />
                     </label>
                     <label class="fieldlabels">Unit: *
                         <br>
-                        <select name="unit_${fieldsetCount}" style="width: 95%; border: 1px solid #ccc; color: black; border-radius: 6px; height: 60%;">
+                        <select name="unit_${fieldsetCount}" class="unit-dropdown" style="width: 95%; border: 1px solid #ccc; color: black; border-radius: 6px; height: 60%;">
                             <option selected disabled>select unit</option>
                             <option value="kg">Kg</option>
                             <option value="gram">Gram</option>
@@ -2187,13 +2204,13 @@ $("#checkguest").click(function() {
                 </div>
                 <div class="input-row" style="margin-top: none;">
                     <label class="fieldlabels">Length: *
-                        <input type="text" name="length_${fieldsetCount}" placeholder="Length">
+                        <input type="number" name="length_${fieldsetCount}" placeholder="Length">
                     </label>
                     <label class="fieldlabels">Width: *
-                        <input type="text" name="width_${fieldsetCount}" placeholder="Width">
+                        <input type="number" name="width_${fieldsetCount}" placeholder="Width">
                     </label>
                     <label class="fieldlabels">Height: *
-                        <input type="text" name="height_${fieldsetCount}" placeholder="Height" />
+                        <input type="number" name="height_${fieldsetCount}" placeholder="Height" />
                     </label>
                     <label class="fieldlabels">Size Unit: *
                         <br>
@@ -2211,10 +2228,9 @@ $("#checkguest").click(function() {
                     <div class="col-lg-6 col-md-12 col-sm-12 col-12 sub_box_data">
                         <h3>Address</h3>
                         <div class="d-lg-flex d-xl-flex d-block">
-                            <input type="text" name="company_name1_${fieldsetCount}" placeholder="Contact Name: *" class="w-100" style="width: 49%;">
-                            <input type="text" name="contact_name1_${fieldsetCount}" placeholder="Contact City" class="w-100" style="width: 49%;">
-                            <input type="text" name="contact_tele1_${fieldsetCount}" placeholder="Contact Telephone" class="w-100" style="width: 49%;">
-                            <input type="text" name="postal_code1_${fieldsetCount}" placeholder="Postal Code: *" class="w-100" style="width: 49%;">
+                        <input type="text" name="company_name1_${fieldsetCount}" placeholder="Contact Name: *" class="w-100" style="width: 49%;">
+                        <input type="number" name="contact_tele1_${fieldsetCount}" placeholder="Contact Telephone" class="w-100" style="width: 49%;">
+                        <input type="text" name="auto_generated_id_${fieldsetCount}" value="${randomId}" readonly class="w-100" style="width: 98%; margin-right: 2%; color: black;">
                         </div>
                     </div>
                 </div>
@@ -2242,16 +2258,16 @@ $("#checkguest").click(function() {
 
             if (selectedValue === 'collection') {
                 dynamicAddressInput.innerHTML = `
-                    <label class="fieldlabels">Collection Point: *
-                        <input type="text" id="collection_point_${fieldsetCount}" name="from_${fieldsetCount}" placeholder="Collection Point" />
+                    <label class="fieldlabels">Collection Stop: *
+                        <input type="text" id="collection_point_${fieldsetCount}" name="from_${fieldsetCount}" placeholder="Collection Stop" />
                     </label>
                 `;
                 const newCollectionInput = dynamicAddressInput.querySelector(`#collection_point_${fieldsetCount}`);
                 const newCollectionAutocomplete = new google.maps.places.Autocomplete(newCollectionInput);
             } else if (selectedValue === 'delivery') {
                 dynamicAddressInput.innerHTML = `
-                    <label class="fieldlabels">Deliver Point: *
-                        <input type="text" id="delivery_point_${fieldsetCount}" name="to_${fieldsetCount}" placeholder="Delivery Point" />
+                    <label class="fieldlabels">Deliver Stop: *
+                        <input type="text" id="delivery_point_${fieldsetCount}" name="to_${fieldsetCount}" placeholder="Delivery Stop" />
                     </label>
                 `;
                 const newDeliveryInput = dynamicAddressInput.querySelector(`#delivery_point_${fieldsetCount}`);
