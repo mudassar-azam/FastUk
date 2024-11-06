@@ -13,6 +13,7 @@ Route::get('/1', function () {
 });
 
 
+Route::post('/process-payment', [FrontController::class, 'processPayment'])->name('process.payment');
 
 Route::get('/', function () {
     $ref_no = strtoupper(substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 6));

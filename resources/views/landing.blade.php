@@ -564,6 +564,7 @@ $data = DB::table('homepages')->first();
                                 <button class="stripe-payment" type="button" id="myBtnw" @if(Auth::user())
                                     style="display:block;" @else style="display:none;" @endif>Wallet
                                 </button>
+                                <button type="button" id="pay-with-stripe">Pay with Stripe</button>
                             </div>
 
                             <div class="row payment-button">
@@ -1170,6 +1171,81 @@ $data = DB::table('homepages')->first();
         {{ session('success') }}
     </div>
     @endif
+    <style>
+        #stripeModal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+    </style>
+    <div id="stripeModal" style="display: none;">
+        <div class="modal-content">
+            <h2>Enter Payment Details</h2>
+            <form id="payment-form-stipe">
+                <div id="card-element"></div>
+                <div id="card-errors" role="alert"></div>
+                <button type="submit">Submit Payment</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        $(document).ready(function() {
+            const stripe = Stripe("{{ config('services.stripe.key') }}");
+            const elements = stripe.elements();
+            const card = elements.create('card');
+            card.mount('#card-element');
+
+            $('#pay-with-stripe').click(function() {
+                $('#stripeModal').show(); // Show the modal when the button is clicked
+            });
+
+            $('#payment-form-stipe').submit(function(e) {
+                e.preventDefault(); // This alert will now work
+
+                stripe.createToken(card).then(function(result) {
+                    if (result.error) {
+                        $('#card-errors').text(result.error.message); 
+                    } else {
+                        $.ajax({
+                            url: '{{ route("process.payment") }}',
+                            method: 'POST',
+                            dataType: 'json',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            data: {
+                                stripeToken: result.token.id
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    alert(response.success); 
+                                    $('#stripeModal').hide(); 
+                                    window.location.reload(); 
+                                } else {
+                                    alert(response.error); 
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                alert("An error occurred: " + error);
+                                $('#stripeModal').hide(); // Close the modal
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
@@ -1182,6 +1258,8 @@ $data = DB::table('homepages')->first();
 swal("Credit Limit Exceeded Please Add Balance To Wallet..!", "", "error");
 </script>
 @endif
+
+
 <script>
 $("#navDropdown").hide();
 $("#close").hide();

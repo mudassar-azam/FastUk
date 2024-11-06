@@ -14,10 +14,29 @@ use App\Models\Service;
 use App\Mail\TradingAccountMail;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
+use Stripe\Stripe;
+use Stripe\Charge;
 
 class FrontController extends Controller
 {
 
+    public function processPayment(Request $request)
+    {
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        try {
+            $charge = Charge::create([
+                "amount" => 1000, 
+                "currency" => "usd",
+                "source" => $request->stripeToken,
+                "description" => "Test Payment",
+            ]);
+
+            return response()->json(['success' => 'Payment successful!']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Payment failed: ' . $e->getMessage()]);
+        }
+    }
 
     public function check_datetime(Request $request)
     {
@@ -38,67 +57,6 @@ class FrontController extends Controller
         return response()->json(['success' => true, 'message' => 'Dynamic data stored in session']);
     }
     
-    // function getdistance(Request $request){
-    //     $addressFrom = $request->from;
-    //     $addressTo   = $request->to;
-
-    //     dd($addressFrom , $addressTo);
-    //     $from = urlencode($addressFrom);
-    //     $to = urlencode($addressTo);
-    //     $geocodeFrom = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?destinations='.htmlspecialchars($from).'&origins='.$to.'&units=imperial&key=AIzaSyCdCB6iqlUAGnEFSmNmMl1OIZ2tKHIizBI');
-    //         $outputFrom = json_decode($geocodeFrom);
-    //         $arr =  (array) $outputFrom;
-    //         foreach ($arr as $key => $value) {
-    //             if ($key == 'rows') {
-    //                 $arr2 =  (array) $value;
-    //                 $arr3 =  (array) $arr2[0];
-    //                 if ($arr3['elements'][0]->status == 'ZERO_RESULTS') {
-    //                     $distance = '';
-    //                 }else{
-    //                 $distance = $arr3['elements'][0]->distance->value;
-    //                 $distance = round(($distance/1000)*0.62137,2);
-
-    //                 }
-    //             }
-    //         }
-    //     return $distance;
-    // }
-
-    // function getDistance(Request $request)
-    // {
-    //     $addressesFrom = explode(',', $request->from);
-    //     $addressesTo = explode(',', $request->to);
-    
-    //     $addresses = array_merge($addressesFrom, $addressesTo);
-    //     $totalPoints = count($addresses);
-    
-    //     $totalDistance = 0;
-    //     $previousLocation = null;
-    
-    //     foreach ($addresses as $address) {
-    //         $address = trim($address);
-    
-    //         if ($previousLocation !== null) {
-    //             $from = urlencode($previousLocation);
-    //             $to = urlencode($address);
-    
-    //             $geocodeFrom = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?destinations='.htmlspecialchars($from).'&origins='.$to.'&units=imperial&key=AIzaSyCdCB6iqlUAGnEFSmNmMl1OIZ2tKHIizBI');
-    //             $outputFrom = json_decode($geocodeFrom, true);
-    
-    //             if (isset($outputFrom['rows'][0]['elements'][0]['status']) && $outputFrom['rows'][0]['elements'][0]['status'] == 'OK') {
-    //                 $distance = $outputFrom['rows'][0]['elements'][0]['distance']['value'];
-    //                 $distanceInMiles = round(($distance / 1000) * 0.62137, 2);
-    //                 $totalDistance += $distanceInMiles;
-    //             }
-    //         }
-    
-    //         $previousLocation = $address;
-    //     }
-    //     return [
-    //         'totalDistance' => $totalDistance,
-    //         'totalPoints' => $totalPoints
-    //     ];
-    // }
 
     function getDistance(Request $request)
     {
