@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -16,6 +15,17 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Stripe\Stripe;
 use Stripe\Charge;
+use App\Models\bookings;
+use App\Models\guest;
+use App\Models\User;
+use App\Models\guest_booking;
+use App\Models\user_booking;
+use App\Models\vehicle;
+use App\Models\vehicle_type;
+use App\Models\UserExtraAddresses;
+use App\Models\GuestExtraAddresses;
+use Illuminate\Support\Facades\Auth;
+
 
 class FrontController extends Controller
 {
@@ -23,20 +33,147 @@ class FrontController extends Controller
     public function processPayment(Request $request)
     {
         Stripe::setApiKey(config('services.stripe.secret'));
-
         try {
+            $amountInPence = (int)($request->s_final * 100);
             $charge = Charge::create([
-                "amount" => 1000, 
-                "currency" => "usd",
+                "amount" => $amountInPence, 
+                "currency" => "gbp",
                 "source" => $request->stripeToken,
                 "description" => "Test Payment",
             ]);
-
-            return response()->json(['success' => 'Payment successful!']);
+    
+            $data = unserialize(base64_decode(session::get('binfo')));
+            $vehicldata = vehicle::find($data['vehicle']);
+            $distance = (float)$data['distance'];
+    
+            if (Auth::user()) {
+                $user_id = Auth::user()->id;
+                $usermail = Auth::user()->email;
+                $booking = new user_booking();
+                $booking->user_id = $user_id;
+                $booking->from_address = $data['from'];
+                $booking->to_address = $data['to'];
+                $booking->booking_date = $data['b_date'];
+                $booking->pick_time_at = $data['p_time_at'];
+                $booking->pickup_time_type = $data['pickup_time_type'];
+                $booking->pick_time_after = $data['p_time_after'];
+                $booking->pick_time_from = $data['p_time_from'];
+                $booking->pick_time_to = $data['p_time_to'];
+                $booking->package_type = $data['package_type'];
+                $booking->quantity = $data['quantity'];
+                $booking->weight = $data['weight'];
+                $booking->unit = $data['unit'];
+                $booking->vehicle_id = $vehicldata->id;
+                $booking->coll_name = $data['company_name1'];
+                $booking->coll_phone = $data['ph1'];
+                $booking->deli_name = $data['company_name2'] ?? null;
+                $booking->deli_phone = $data['ph2'] ?? null;
+                $booking->length = $data['length'];
+                $booking->height = $data['height'];
+                $booking->width = $data['width'];
+                $booking->size_unit = $data['size_unit'];
+                $booking->status = 'pending';
+                $booking->distance = $distance;
+                $booking->price = $data['ffinal'];
+                $booking->ref_no = $data['ref_no'];
+                $booking->save();
+    
+                $dynamicData = session()->get('dynamic_fieldsets');
+                if ($dynamicData && is_array($dynamicData)) {
+                    foreach ($dynamicData as $item) {
+                        $extraAddress = new UserExtraAddresses();
+                        $extraAddress->linked_to = $item['linked_to'];
+                        $extraAddress->ref_no = $item['auto_generated_id'];
+                        $extraAddress->address_type = $item['address_type'];
+                        $extraAddress->package_type = $item['package_type'];
+                        $extraAddress->quantity = $item['quantity'];
+                        $extraAddress->weight = $item['weight'];
+                        $extraAddress->unit = $item['unit'];
+                        $extraAddress->length = $item['length'];
+                        $extraAddress->width = $item['width'];
+                        $extraAddress->height = $item['height'];
+                        $extraAddress->size_unit = $item['size_unit'];
+                        $extraAddress->collection_point = $item['collection_point'];
+                        $extraAddress->delivery_point = $item['delivery_point'];
+                        $extraAddress->additional_notes = $item['additional_notes'];
+                        $extraAddress->company_name = $item['company_name'];
+                        $extraAddress->contact_tele = $item['contact_tele'];
+                        $extraAddress->booking_id = $booking->id; 
+                        $extraAddress->save();
+                    }
+                }
+                session()->forget('dynamic_fieldsets');
+                session()->forget('binfo');
+                return response()->json(['success' => 'Payment successful!']);
+            } else {
+                if (session::has('guest_track_id')) {
+                    $guest_id = session::get('guest_track_id');
+                    $booking = new guest_booking();
+                    $booking->guest_id = $guest_id;
+                    $booking->from_address = $data['from'];
+                    $booking->to_address = $data['to'];
+                    $booking->booking_date = $data['b_date'];
+                    $booking->pick_time_at = $data['p_time_at'];
+                    $booking->pickup_time_type = $data['pickup_time_type'];
+                    $booking->pick_time_after = $data['p_time_after'];
+                    $booking->pick_time_from = $data['p_time_from'];
+                    $booking->pick_time_to = $data['p_time_to'];
+                    $booking->package_type = $data['package_type'];
+                    $booking->quantity = $data['quantity'];
+                    $booking->weight = $data['weight'];
+                    $booking->unit = $data['unit'];
+                    $booking->vehicle_id = $vehicldata->id;
+                    $booking->length = $data['length'];
+                    $booking->height = $data['height'];
+                    $booking->width = $data['width'];
+                    $booking->size_unit = $data['size_unit'];
+                    $booking->coll_name = $data['company_name1'];
+                    $booking->coll_phone = $data['ph1'];
+                    $booking->deli_name = $data['company_name2'] ?? null;
+                    $booking->deli_phone = $data['ph2'] ?? null;
+                    $booking->status = 'pending';
+                    $booking->distance = $distance;
+                    $booking->price = $data['ffinal'];
+                    $booking->ref_no = $data['ref_no'];
+                    $booking->save();
+    
+                    $dynamicData = session()->get('dynamic_fieldsets');
+                    if ($dynamicData && is_array($dynamicData)) {
+                        foreach ($dynamicData as $item) {
+                            $extraAddress = new GuestExtraAddresses();
+                            $extraAddress->linked_to = $item['linked_to'];
+                            $extraAddress->ref_no = $item['auto_generated_id'];
+                            $extraAddress->address_type = $item['address_type'];
+                            $extraAddress->package_type = $item['package_type'];
+                            $extraAddress->quantity = $item['quantity'];
+                            $extraAddress->weight = $item['weight'];
+                            $extraAddress->unit = $item['unit'];
+                            $extraAddress->length = $item['length'];
+                            $extraAddress->width = $item['width'];
+                            $extraAddress->height = $item['height'];
+                            $extraAddress->size_unit = $item['size_unit'];
+                            $extraAddress->collection_point = $item['collection_point'];
+                            $extraAddress->delivery_point = $item['delivery_point'];
+                            $extraAddress->additional_notes = $item['additional_notes'];
+                            $extraAddress->company_name = $item['company_name'];
+                            $extraAddress->contact_tele = $item['contact_tele'];
+                            $extraAddress->booking_id = $booking->id; 
+                            $extraAddress->save();
+                        }
+                    }
+                    session()->forget('dynamic_fieldsets');
+                    session()->forget('binfo');
+                    return response()->json([
+                        'success' => 'Payment successful!',
+                        'redirect_url' => url('/guest-home-page') 
+                    ]);
+                }
+            }
         } catch (\Exception $e) {
             return response()->json(['error' => 'Payment failed: ' . $e->getMessage()]);
         }
     }
+    
 
     public function check_datetime(Request $request)
     {

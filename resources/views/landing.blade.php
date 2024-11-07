@@ -564,7 +564,11 @@ $data = DB::table('homepages')->first();
                                 <button class="stripe-payment" type="button" id="myBtnw" @if(Auth::user())
                                     style="display:block;" @else style="display:none;" @endif>Wallet
                                 </button>
-                                <button type="button" id="pay-with-stripe">Pay with Stripe</button>
+                                <button style="background-color: #0d3685; color: white; {{ auth()->check() ? 'display: block;' : 'display: none;' }}" 
+                                        type="button" id="pay-with-stripe">
+                                    Pay with Stripe
+                                </button>
+
                             </div>
 
                             <div class="row payment-button">
@@ -1193,6 +1197,7 @@ $data = DB::table('homepages')->first();
             <form id="payment-form-stipe">
                 <div id="card-element"></div>
                 <div id="card-errors" role="alert"></div>
+                <input type="hidden" id="data-check-stripe" value="{{ Session::get('guest_track_id')}}">
                 <button type="submit">Submit Payment</button>
             </form>
         </div>
@@ -1206,16 +1211,17 @@ $data = DB::table('homepages')->first();
             card.mount('#card-element');
 
             $('#pay-with-stripe').click(function() {
-                $('#stripeModal').show(); // Show the modal when the button is clicked
+                $('#stripeModal').show(); 
             });
 
             $('#payment-form-stipe').submit(function(e) {
-                e.preventDefault(); // This alert will now work
+                e.preventDefault(); 
 
                 stripe.createToken(card).then(function(result) {
                     if (result.error) {
                         $('#card-errors').text(result.error.message); 
                     } else {
+                        var s_final = $('#final_price').val();
                         $.ajax({
                             url: '{{ route("process.payment") }}',
                             method: 'POST',
@@ -1224,20 +1230,25 @@ $data = DB::table('homepages')->first();
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
                             },
                             data: {
-                                stripeToken: result.token.id
+                                stripeToken: result.token.id,
+                                s_final: s_final
                             },
                             success: function(response) {
                                 if (response.success) {
                                     alert(response.success); 
-                                    $('#stripeModal').hide(); 
-                                    window.location.reload(); 
+                                    if (response.redirect_url) {
+                                        window.location.href = response.redirect_url;
+                                    } else {
+                                        $('#stripeModal').hide(); 
+                                        window.location.reload(); 
+                                    }
                                 } else {
                                     alert(response.error); 
                                 }
                             },
                             error: function(xhr, status, error) {
                                 alert("An error occurred: " + error);
-                                $('#stripeModal').hide(); // Close the modal
+                                $('#stripeModal').hide(); 
                             }
                         });
                     }
@@ -2025,6 +2036,7 @@ function login(e) {
     var loginmodel = document.getElementById("loginmodel");
     var btn3 = document.getElementById("myBtn3");
     var btn2 = document.getElementById("myBtn2");
+    var myBtnnew = document.getElementById("pay-with-stripe");
 
     var usrdashboard = document.getElementById("usrdashboard");
     var usrregister = document.getElementById("usrregister");
@@ -2050,6 +2062,7 @@ function login(e) {
             btn3.style.display = "none";
             btn.style.display = "block";
             btn1.style.display = "block";
+            myBtnnew.style.display = "block";
             usrdashboard.style.display = "block";
             usrregister.style.display = "none";
 
@@ -2377,9 +2390,9 @@ document.getElementById('addCollectionButton').addEventListener('click', functio
 
 </script>
 <script>
-      document.getElementById('myBtn2').addEventListener('click', function () {
-     
+     document.getElementById('myBtn2').addEventListener('click', function () {
      const guestTrackId = this.getAttribute('data-check');
+     var myBtnnew = document.getElementById("pay-with-stripe");
      // Create a FormData object to gather the form data
      const formData = new FormData(document.getElementById('msform'));
      formData.append('guest_track_id', guestTrackId);
@@ -2394,15 +2407,16 @@ document.getElementById('addCollectionButton').addEventListener('click', functio
      })
      .then(response => {
          console.log('Response status:', response.status);
-         return response.json(); // Ensure we parse the JSON
+         myBtnnew.style.display = "block";
+         return response.json(); 
      })
      .then(data => {
          console.log('Response data:', data);
-         // Handle success or error messages
          if (data.status === 'done') {
              // Show the generated track_id in the input fields
              document.querySelector('input[name="track_id"]').value = data.track_id; // Append track_id to the appropriate input field
              document.querySelector('input[name="trackid"]').value = data.track_id; // Also show in the trackid field
+             myBtnnew.style.display = "block";
          } else if (data.status === 'already_id') {
              alert('Track ID already exists.');
          } else {

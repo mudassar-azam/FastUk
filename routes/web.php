@@ -58,8 +58,8 @@ Route::post('/createguest', [App\Http\Controllers\GuestController::class, 'index
 Route::post('/loginguest', [App\Http\Controllers\GuestController::class, 'login'])->name('login.guest');
 Route::get('/homeguest', [App\Http\Controllers\GuestController::class, 'guest_home'])->name('home.guest');
 Route::get('/destroyguest', [App\Http\Controllers\GuestController::class, 'destroy'])->name('destroy.guest');
-Route::get('/guest-home-page', [App\Http\Controllers\GuestController::class, 'page_guest_home'])->name('page.guest_home')->middleware('authguest');
-Route::get('/guest-extra-addresses/{id}', [App\Http\Controllers\GuestController::class, 'extra'])->name('guest.extra')->middleware('authguest');
+Route::get('/guest-home-page', [App\Http\Controllers\GuestController::class, 'page_guest_home'])->name('page.guest_home');
+Route::get('/guest-extra-addresses/{id}', [App\Http\Controllers\GuestController::class, 'extra'])->name('guest.extra');
 
 Route::post('/guest-booking', [App\Http\Controllers\GuestController::class, 'guestBooking'])->name('book.guestBooking');
 Route::get('/loginguest', [App\Http\Controllers\GuestController::class, 'getlogin'])->name('login.guest');
